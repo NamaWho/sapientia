@@ -1,0 +1,394 @@
+[
+    {
+        "id": 1,
+        "livello": "base",
+        "domanda": "Qual è la definizione di un modello linguistico?",
+        "opzioni": {
+            "a": "Un sistema che traduce le lingue in tempo reale.",
+            "b": "Una funzione che assegna probabilità a sequenze di parole.",
+            "c": "Un dizionario contenente tutte le parole di una lingua.",
+            "d": "Un metodo per classificare immagini.",
+            "e": "Un algoritmo che calcola il significato di frasi complesse."
+        },
+        "risposta_corretta": "b"
+    },
+    {
+        "id": 2,
+        "livello": "base",
+        "domanda": "Cosa rappresenta il termine 'vocabolario' in un modello linguistico?",
+        "opzioni": {
+            "a": "Una sequenza di frasi in un corpus.",
+            "b": "L'insieme finito di parole che un modello può riconoscere.",
+            "c": "Una collezione di libri utilizzati per addestrare il modello.",
+            "d": "L'output generato da un modello di traduzione.",
+            "e": "Un metodo per calcolare le probabilità condizionate."
+        },
+        "risposta_corretta": "b"
+    },
+    {
+        "id": 3,
+        "livello": "base",
+        "domanda": "Qual è lo scopo del token speciale [MASK] in un modello di linguaggio?",
+        "opzioni": {
+            "a": "Rappresentare una parola nascosta da prevedere.",
+            "b": "Segnalare la fine di una frase.",
+            "c": "Marcare le parole fuori vocabolario.",
+            "d": "Indicare un'interruzione nel processo di addestramento.",
+            "e": "Definire il contesto di una parola."
+        },
+        "risposta_corretta": "a"
+    },
+    {
+        "id": 4,
+        "livello": "base",
+        "domanda": "Cosa si intende per perplexity in un modello di linguaggio?",
+        "opzioni": {
+            "a": "La misura della dimensione del vocabolario.",
+            "b": "Il numero di parole generate dal modello.",
+            "c": "La quantità di sorpresa del modello su una sequenza.",
+            "d": "La velocità di elaborazione del modello.",
+            "e": "La capacità del modello di classificare immagini."
+        },
+        "risposta_corretta": "c"
+    },
+    {
+        "id": 5,
+        "livello": "base",
+        "domanda": "Qual è il compito di un modello n-gramma?",
+        "opzioni": {
+            "a": "Prevedere parole in base alle precedenti n parole.",
+            "b": "Tradurre frasi tra lingue diverse.",
+            "c": "Generare sinonimi per parole comuni.",
+            "d": "Classificare parole in categorie.",
+            "e": "Creare frasi sintatticamente corrette."
+        },
+        "risposta_corretta": "a"
+    },
+    {
+        "id": 6,
+        "livello": "base",
+        "domanda": "Che cosa rappresenta una distribuzione di probabilità in un modello di linguaggio?",
+        "opzioni": {
+            "a": "La sequenza di output generata da un modello.",
+            "b": "Una misura della probabilità di ogni sequenza di parole.",
+            "c": "Il numero totale di parole in un corpus.",
+            "d": "La somma delle frequenze delle parole più comuni.",
+            "e": "Un metodo per generare domande multiple."
+        },
+        "risposta_corretta": "b"
+    },
+    {
+        "id": 7,
+        "livello": "base",
+        "domanda": "Cosa significa tokenizzazione in un modello di linguaggio?",
+        "opzioni": {
+            "a": "Dividere un testo in unità minime come parole o caratteri.",
+            "b": "Aggiungere nuovi vocaboli al modello.",
+            "c": "Classificare parole in categorie semantiche.",
+            "d": "Unire più frasi in una sequenza.",
+            "e": "Generare output a partire da un corpus."
+        },
+        "risposta_corretta": "a"
+    },
+    {
+        "id": 8,
+        "livello": "base",
+        "domanda": "Cos'è un embedding di parole?",
+        "opzioni": {
+            "a": "Un metodo per calcolare la frequenza delle parole.",
+            "b": "Una rappresentazione vettoriale densa di parole.",
+            "c": "Un algoritmo per tradurre frasi.",
+            "d": "Un sistema per classificare le parole in base alla loro lunghezza.",
+            "e": "Un tipo di modello supervisionato."
+        },
+        "risposta_corretta": "b"
+    },
+    {
+        "id": 9,
+        "livello": "base",
+        "domanda": "Cosa rappresenta il termine entropia in un modello linguistico?",
+        "opzioni": {
+            "a": "La misura dell'incertezza in una distribuzione di probabilità.",
+            "b": "La dimensione del vocabolario utilizzato dal modello.",
+            "c": "Il numero di frasi nel corpus di addestramento.",
+            "d": "La velocità con cui un modello genera testo.",
+            "e": "La relazione tra parole consecutive in una frase."
+        },
+        "risposta_corretta": "a"
+    },
+    {
+        "id": 10,
+        "livello": "base",
+        "domanda": "Qual è lo scopo di un corpus di addestramento?",
+        "opzioni": {
+            "a": "Un insieme di dati per valutare il modello.",
+            "b": "Un insieme di sequenze linguistiche per stimare i parametri del modello.",
+            "c": "Un dizionario che associa parole a significati.",
+            "d": "Un algoritmo per classificare frasi in base alla lunghezza.",
+            "e": "Un database di sinonimi per arricchire il vocabolario."
+        },
+        "risposta_corretta": "b"
+    },
+    
+        {
+            "id": 11,
+            "livello": "intermedio",
+            "domanda": "Qual è il ruolo della funzione softmax nei modelli di linguaggio?",
+            "opzioni": {
+                "a": "Normalizzare le probabilità in un range continuo.",
+                "b": "Assegnare una distribuzione di probabilità su tutte le possibili previsioni.",
+                "c": "Ridurre la complessità computazionale dei modelli.",
+                "d": "Eliminare valori negativi nelle distribuzioni.",
+                "e": "Identificare il token più frequente in un corpus."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 12,
+            "livello": "intermedio",
+            "domanda": "Cosa rappresenta la cross-entropy nei modelli di linguaggio?",
+            "opzioni": {
+                "a": "La similarità tra due distribuzioni di probabilità.",
+                "b": "La discrepanza tra una distribuzione reale e una predetta.",
+                "c": "Il numero medio di token in un corpus di addestramento.",
+                "d": "Il costo computazionale di un modello.",
+                "e": "La distribuzione uniforme delle probabilità nel modello."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 13,
+            "livello": "intermedio",
+            "domanda": "Come funziona il modello skip-gram per gli embeddings delle parole?",
+            "opzioni": {
+                "a": "Prevede una parola centrale dato il contesto.",
+                "b": "Prevede le parole di contesto data una parola centrale.",
+                "c": "Prevede l'intera frase dato un singolo token.",
+                "d": "Sostituisce le parole sconosciute nel corpus.",
+                "e": "Genera una sequenza casuale di parole correlate."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 14,
+            "livello": "intermedio",
+            "domanda": "Qual è l'obiettivo principale di un modello seq2seq?",
+            "opzioni": {
+                "a": "Prevedere la prossima parola in una sequenza.",
+                "b": "Mappare sequenze di input e output di lunghezza diversa.",
+                "c": "Generare una distribuzione uniforme delle parole.",
+                "d": "Identificare le relazioni sintattiche in un testo.",
+                "e": "Eliminare la ridondanza nei dati di addestramento."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 15,
+            "livello": "intermedio",
+            "domanda": "Qual è la funzione principale delle unità LSTM nei modelli ricorrenti?",
+            "opzioni": {
+                "a": "Ridurre il numero di parametri in un modello.",
+                "b": "Mantenere le informazioni rilevanti a lungo termine.",
+                "c": "Sostituire gli embeddings delle parole.",
+                "d": "Accorciare le sequenze di input nei dati.",
+                "e": "Calcolare la similarità tra due frasi."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 16,
+            "livello": "intermedio",
+            "domanda": "Cosa si intende per smoothing in un modello n-gramma?",
+            "opzioni": {
+                "a": "Aggiungere probabilità positive a eventi non osservati.",
+                "b": "Ridurre la lunghezza delle sequenze di addestramento.",
+                "c": "Sostituire parole rare con token comuni.",
+                "d": "Normalizzare le distribuzioni delle probabilità.",
+                "e": "Ottimizzare la complessità del modello durante l'inferenza."
+            },
+            "risposta_corretta": "a"
+        },
+        {
+            "id": 17,
+            "livello": "intermedio",
+            "domanda": "Qual è il vantaggio dell'auto-attention nei Transformer?",
+            "opzioni": {
+                "a": "Eliminare completamente il bisogno di embeddings.",
+                "b": "Calcolare relazioni tra token senza dipendenze sequenziali.",
+                "c": "Ridurre il numero di parametri del modello.",
+                "d": "Aumentare la lunghezza massima delle sequenze.",
+                "e": "Migliorare la velocità di addestramento nei modelli RNN."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 18,
+            "livello": "intermedio",
+            "domanda": "Cosa significa 'vanishing gradient' negli RNN?",
+            "opzioni": {
+                "a": "La perdita di significato semantico nelle rappresentazioni.",
+                "b": "La riduzione dei gradienti a valori molto piccoli durante il training.",
+                "c": "La crescita incontrollata dei gradienti durante l'addestramento.",
+                "d": "L'eliminazione di token non rilevanti nel contesto.",
+                "e": "L'incapacità di rappresentare relazioni sintattiche complesse."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 19,
+            "livello": "intermedio",
+            "domanda": "Qual è l'idea principale dietro le embedding posizionali sinusoidali?",
+            "opzioni": {
+                "a": "Rappresentare il significato semantico delle parole.",
+                "b": "Incorporare informazioni di posizione nei modelli Transformer.",
+                "c": "Ridurre la dimensionalità del vocabolario.",
+                "d": "Migliorare la capacità del modello di generalizzare.",
+                "e": "Creare rappresentazioni vettoriali indipendenti dal contesto."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 20,
+            "livello": "intermedio",
+            "domanda": "Qual è lo scopo principale del beam search nei modelli di linguaggio?",
+            "opzioni": {
+                "a": "Selezionare la sequenza con la probabilità cumulativa più alta.",
+                "b": "Generare una distribuzione uniforme tra i token.",
+                "c": "Campionare token casuali dalla distribuzione di probabilità.",
+                "d": "Ridurre la lunghezza delle sequenze generate.",
+                "e": "Normalizzare le distribuzioni di probabilità su tutte le sequenze."
+            },
+            "risposta_corretta": "a"
+        },
+        {
+            "id": 21,
+            "livello": "avanzato",
+            "domanda": "Come vengono calcolate le probabilità nei modelli n-grammi con smoothing?",
+            "opzioni": {
+                "a": "Usando una distribuzione uniforme per tutti i n-grammi.",
+                "b": "Aggiungendo un valore costante alle frequenze osservate.",
+                "c": "Normalizzando le frequenze degli n-grammi nel corpus.",
+                "d": "Applicando la tecnica di backpropagation sui n-grammi.",
+                "e": "Utilizzando modelli sequenziali ricorrenti."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 22,
+            "livello": "avanzato",
+            "domanda": "Qual è il vantaggio principale delle unità LSTM rispetto agli RNN tradizionali?",
+            "opzioni": {
+                "a": "Migliorano la velocità di addestramento eliminando i gradienti.",
+                "b": "Consentono di catturare dipendenze a lungo termine nelle sequenze.",
+                "c": "Riducono la necessità di grandi corpus di addestramento.",
+                "d": "Semplificano le rappresentazioni lessicali nel modello.",
+                "e": "Permettono di calcolare direttamente le embedding di posizione."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 23,
+            "livello": "avanzato",
+            "domanda": "Cosa si intende per causal attention nei Transformer?",
+            "opzioni": {
+                "a": "Un meccanismo di attenzione che ignora i token passati.",
+                "b": "Un'attenzione bidirezionale su tutte le parole della sequenza.",
+                "c": "Un'attenzione che considera solo i token precedenti e attuali.",
+                "d": "Una forma di attenzione usata nei modelli supervisionati.",
+                "e": "Un tipo di attenzione basato sulle convoluzioni temporali."
+            },
+            "risposta_corretta": "c"
+        },
+        {
+            "id": 24,
+            "livello": "avanzato",
+            "domanda": "Quali sono le limitazioni della self-attention nei Transformer?",
+            "opzioni": {
+                "a": "La difficoltà di calcolare dipendenze a breve termine.",
+                "b": "L'incapacità di gestire parole fuori dal vocabolario.",
+                "c": "Il costo computazionale quadratico rispetto alla lunghezza della sequenza.",
+                "d": "La necessità di vocabolari predefiniti troppo grandi.",
+                "e": "L'assenza di capacità di generalizzare il contesto."
+            },
+            "risposta_corretta": "c"
+        },
+        {
+            "id": 25,
+            "livello": "avanzato",
+            "domanda": "Che cosa rappresenta il loss scaling nei modelli su larga scala?",
+            "opzioni": {
+                "a": "Un metodo per aumentare l'accuratezza del modello durante l'inferenza.",
+                "b": "Una tecnica per migliorare la stabilità numerica durante l'addestramento.",
+                "c": "Una strategia per ridurre il numero di parametri nei modelli.",
+                "d": "Un approccio per bilanciare i pesi durante il pre-training.",
+                "e": "Un processo per ridurre la dimensione del vocabolario."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 26,
+            "livello": "avanzato",
+            "domanda": "Cosa si intende per embeddings specifici del dominio?",
+            "opzioni": {
+                "a": "Embeddings costruite per rappresentare sinonimi.",
+                "b": "Rappresentazioni apprese su corpora di dati di un settore specifico.",
+                "c": "Rappresentazioni apprese in un modello supervisionato.",
+                "d": "Una variante degli embeddings pre-addestrati globali.",
+                "e": "Embeddings che ignorano il contesto globale."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 27,
+            "livello": "avanzato",
+            "domanda": "Qual è la funzione degli embedding posizionali nei Transformer?",
+            "opzioni": {
+                "a": "Fornire informazioni sui token fuori vocabolario.",
+                "b": "Migliorare l'attenzione causale.",
+                "c": "Incorporare l'ordine sequenziale dei token nella rappresentazione.",
+                "d": "Ridurre la dimensione del vocabolario durante l'addestramento.",
+                "e": "Aumentare l'accuratezza dei modelli ricorrenti."
+            },
+            "risposta_corretta": "c"
+        },
+        {
+            "id": 28,
+            "livello": "avanzato",
+            "domanda": "Come si applica il masking stocastico nel pre-training?",
+            "opzioni": {
+                "a": "Rimuovendo sequenze intere dal corpus di addestramento.",
+                "b": "Nascondendo casualmente una percentuale di token in una sequenza.",
+                "c": "Applicando il dropout su tutti i layer del modello.",
+                "d": "Riducendo il numero di token disponibili nel vocabolario.",
+                "e": "Assegnando probabilità uniformi ai token mascherati."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 29,
+            "livello": "avanzato",
+            "domanda": "Che cosa significa minimizzare l'entropia incrociata in un modello linguistico?",
+            "opzioni": {
+                "a": "Rendere uniforme la distribuzione dei pesi nel modello.",
+                "b": "Ridurre la discrepanza tra distribuzioni predette e reali.",
+                "c": "Ridurre il numero di parametri necessari per l'addestramento.",
+                "d": "Aumentare la capacità del modello di generalizzare su nuovi dati.",
+                "e": "Massimizzare l'incertezza sulle previsioni del modello."
+            },
+            "risposta_corretta": "b"
+        },
+        {
+            "id": 30,
+            "livello": "avanzato",
+            "domanda": "Qual è la differenza tra beam search e greedy search?",
+            "opzioni": {
+                "a": "Greedy search esplora tutte le possibili sequenze simultaneamente.",
+                "b": "Beam search mantiene le n sequenze migliori a ogni passaggio.",
+                "c": "Greedy search utilizza distribuzioni condizionate normalizzate.",
+                "d": "Beam search predice sempre la sequenza con la probabilità più bassa.",
+                "e": "Non esiste una differenza tra i due metodi."
+            },
+            "risposta_corretta": "b"
+        }
+    ]   
+    

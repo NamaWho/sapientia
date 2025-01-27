@@ -1,0 +1,542 @@
+[
+    {
+        "id": 1,
+        "domanda": "Che cos'è un modello linguistico?",
+        "risposta": "Un modello linguistico (Language Model) è una funzione che assegna una probabilità a una sequenza di parole, definendo così una distribuzione di probabilità su tutte le possibili sequenze di testo in una lingua specifica. Serve a rappresentare e prevedere strutture linguistiche. Formalmente, è una funzione P: V* → R dove V* è l'insieme infinito delle sequenze di qualsiasi lunghezza su un vocabolario V. Ad esempio, può essere usato per prevedere la prossima parola in una frase dato il contesto, come in 'Il gatto è sul…'.",
+        "livello": "base"
+    },
+    {
+        "id": 2,
+        "domanda": "Come si definisce un vocabolario?",
+        "risposta": "Un vocabolario è un insieme finito V di elementi, chiamati parole. Ogni parola w ∈ V rappresenta una porzione atomica del linguaggio che il modello può utilizzare. La dimensione del vocabolario |V| varia a seconda del contesto e dei dati utilizzati, ma una sfida comune è come gestire parole sconosciute (Out Of Vocabulary, OOV).",
+        "livello": "base"
+    },
+    {
+        "id": 3,
+        "domanda": "Cos'è un corpus di addestramento e come viene utilizzato?",
+        "risposta": "Un corpus di addestramento è un sottoinsieme finito T ⊂ V* di sequenze linguistiche, usato per stimare i parametri di un modello linguistico. Poiché V* è infinito, non possiamo calcolare direttamente P(s) per ogni sequenza s, quindi usiamo T come rappresentazione approssimativa della lingua.",
+        "livello": "base"
+    },
+    {
+        "id": 4,
+        "domanda": "Quali sono le principali metriche per valutare un modello linguistico?",
+        "risposta": "Due approcci principali sono: (1) Valutazione intrinseca: misura la qualità del modello tramite metriche come la Perplessità (PP), che quantifica quanto il modello è 'sorpreso' dai dati non visti. Una perplessità più bassa implica un modello migliore. (2) Valutazione estrinseca: considera l'uso specifico del modello in compiti downstream, come traduzione o classificazione, con metriche specifiche come accuratezza, BLEU o F1-score.",
+        "livello": "base"
+    },
+    {
+        "id": 5,
+        "domanda": "Cos'è la perplessità e come si calcola?",
+        "risposta": "La perplessità misura l'incertezza media del modello su una sequenza. Si calcola come: PP(w1, ..., wT) = (1 / P[w1, ..., wT])^(1/T). Valori più bassi indicano che il modello fa previsioni più accurate. Ad esempio, un modello uniforme avrebbe una perplessità pari alla dimensione del vocabolario.",
+        "livello": "base"
+    },
+    {
+        "id": 6,
+        "domanda": "Qual è il significato del teorema della catena nei modelli linguistici?",
+        "risposta": "Questo teorema permette di decomporre la probabilità di una sequenza come prodotto di probabilità condizionate: P[w1, ..., wT] = P[w1] * P[w2 | w1] * ... * P[wT | w1, ..., wT-1]. È essenziale per calcolare probabilità di sequenze complesse in modo computazionalmente efficiente.",
+        "livello": "base"
+    },
+    {
+        "id": 7,
+        "domanda": "Cosa sono i token di inizio e fine frase e perché sono importanti?",
+        "risposta": "I token ⟨s⟩ (inizio) e ⟨/s⟩ (fine) vengono aggiunti artificialmente per definire chiaramente i limiti di una sequenza. Consentono al modello di gestire input di lunghezza variabile e prevedere correttamente la conclusione di una frase.",
+        "livello": "base"
+    },
+    {
+        "id": 8,
+        "domanda": "Quali sono le principali strategie per generare frasi da un modello linguistico?",
+        "risposta": "Tra le strategie troviamo: (1) Greedy Search: seleziona la parola con la massima probabilità a ogni passaggio. (2) Beam Search: mantiene le n sequenze più promettenti in ogni passaggio. (3) Sampling: campiona le parole dalla distribuzione delle probabilità del modello.",
+        "livello": "base"
+    },
+    {
+        "id": 9,
+        "domanda": "Cos'è l'entropia di un modello linguistico e perché è importante?",
+        "risposta": "L'entropia H(X) misura l'incertezza di una distribuzione di probabilità. Nei modelli linguistici, un'entropia più bassa significa che il modello è più sicuro delle sue previsioni. Si definisce come: H(X) = - ∑ P(x) log P(x).",
+        "livello": "base"
+    },
+    {
+        "id": 10,
+        "domanda": "In che modo si minimizza l'entropia incrociata per apprendere un modello linguistico?",
+        "risposta": "L'entropia incrociata H(P, Q) misura la discrepanza tra una distribuzione vera P e una approssimata Q. Minimizzare H(P, Q) equivale a trovare i parametri Θ di Q che meglio approssimano P sui dati di addestramento: argmin_Q H(P, Q). Questo avviene solitamente ottimizzando una funzione di perdita tramite metodi come la discesa del gradiente.",
+        "livello": "base"
+    },
+    {
+        "id": 11,
+        "domanda": "Qual è lo scopo della funzione softmax in un modello di linguaggio?",
+        "risposta": "La funzione softmax viene utilizzata per trasformare un vettore di numeri reali in una distribuzione di probabilità. In un modello di linguaggio, la softmax viene applicata per assegnare probabilità ai possibili output del modello, come le parole successive in una sequenza. La funzione calcola il rapporto esponenziale di ogni elemento rispetto alla somma degli esponenziali di tutti gli elementi del vettore, garantendo che le probabilità risultanti siano comprese tra 0 e 1 e sommino a 1.",
+        "livello": "base"
+    },
+    {
+        "id": 12,
+        "domanda": "Cosa sono i parametri di un modello e come vengono appresi?",
+        "risposta": "I parametri di un modello sono i valori numerici che definiscono il comportamento del modello, come i pesi e i bias nelle reti neurali. Questi parametri vengono appresi durante il processo di addestramento, utilizzando un insieme di dati di esempio e un algoritmo di ottimizzazione come la discesa del gradiente. L'obiettivo è minimizzare una funzione di perdita che misura la discrepanza tra le previsioni del modello e i valori effettivi presenti nel dataset di addestramento.",
+        "livello": "base"
+    },
+    {
+        "id": 13,
+        "domanda": "Spiega cosa rappresenta una distribuzione di probabilità in un modello di linguaggio.",
+        "risposta": "Una distribuzione di probabilità in un modello di linguaggio rappresenta la probabilità che una determinata sequenza di parole o un singolo token appaia in un determinato contesto. È una funzione matematica che assegna valori di probabilità a tutti i possibili eventi linguistici. Ad esempio, un modello potrebbe prevedere la probabilità di una parola successiva basandosi sulle parole precedenti in una frase.",
+        "livello": "base"
+    },
+    {
+        "id": 14,
+        "domanda": "Cos'è un corpus di addestramento?",
+        "risposta": "Un corpus di addestramento è un insieme di dati testuali utilizzato per addestrare un modello di linguaggio. Contiene sequenze linguistiche che rappresentano un sottoinsieme della lingua di destinazione. Questo corpus serve come base per stimare i parametri del modello e approssimare la distribuzione probabilistica del linguaggio. Ad esempio, un corpus può includere articoli di giornale, libri o messaggi sui social media.",
+        "livello": "base"
+    },
+    {
+        "id": 15,
+        "domanda": "Che cosa sono le embeddings delle parole?",
+        "risposta": "Le embeddings delle parole sono rappresentazioni numeriche denso-vettoriali di parole che catturano il loro significato semantico e sintattico. Ogni parola viene mappata a un vettore di dimensione ridotta rispetto alla dimensione del vocabolario. Queste rappresentazioni sono apprese da modelli come word2vec o fastText e permettono di rappresentare relazioni tra parole come similarità e analogie.",
+        "livello": "base"
+    },
+    {
+        "id": 16,
+        "domanda": "Qual è il significato di 'tokenizzazione' in un modello di linguaggio?",
+        "risposta": "La tokenizzazione è il processo di suddivisione di un testo in unità minime chiamate token, che possono essere parole, sottoparole o caratteri. È un passaggio fondamentale nei modelli di linguaggio poiché permette di trasformare il testo in input gestibile per il modello. Ad esempio, 'Il gatto è sul tappeto' può essere suddiviso nei token ['Il', 'gatto', 'è', 'sul', 'tappeto'].",
+        "livello": "base"
+    },
+    {
+        "id": 17,
+        "domanda": "Cosa si intende per una loss function in machine learning?",
+        "risposta": "La loss function, o funzione di perdita, è una metrica che quantifica l'errore tra le previsioni del modello e i valori attesi nei dati di addestramento. Ad esempio, la cross-entropy è comunemente utilizzata nei modelli di linguaggio per confrontare la probabilità prevista per una sequenza con la probabilità effettiva. L'obiettivo del processo di addestramento è minimizzare questa funzione di perdita.",
+        "livello": "base"
+    },
+    {
+        "id": 18,
+        "domanda": "Cos'è una rete neurale feed-forward?",
+        "risposta": "Una rete neurale feed-forward è un tipo di rete neurale artificiale in cui le informazioni fluiscono in una sola direzione, dai nodi di input attraverso uno o più livelli nascosti fino ai nodi di output. Non ci sono connessioni ricorrenti o cicli. Questo tipo di rete è utilizzato per compiti come classificazione o regressione e costituisce la base di modelli più complessi come le reti convoluzionali o ricorrenti.",
+        "livello": "base"
+    },
+    {
+        "id": 19,
+        "domanda": "Definisci il concetto di 'bag of words'.",
+        "risposta": "Il 'bag of words' è una rappresentazione semplificata di un testo che descrive l'occorrenza delle parole nel documento, ignorando la loro sequenza o contesto grammaticale. Ogni documento è rappresentato come un vettore in cui ogni dimensione corrisponde a una parola del vocabolario e il valore indica la frequenza della parola nel documento.",
+        "livello": "base"
+    },
+    {
+        "id": 20,
+        "domanda": "Qual è il ruolo delle parole fuori dal vocabolario (OOV)?",
+        "risposta": "Le parole fuori dal vocabolario (Out Of Vocabulary, OOV) sono parole che non appaiono nel vocabolario del modello. Queste parole rappresentano una sfida, poiché il modello non ha informazioni su di esse. Per gestirle, spesso si utilizza un token speciale ⟨UNK⟩ che rappresenta tutte le parole sconosciute, oppure si ricorre a tecniche come l'uso di sottoparole o tokenizzazione a livello di carattere.",
+        "livello": "base"
+    },
+    {
+        "id": 21,
+        "domanda": "Qual è il compito di un modello di bigrammi?",
+        "risposta": "Il compito di un modello di bigrammi è calcolare la probabilità di una parola basandosi sulla parola immediatamente precedente. Si basa sull'assunzione di Markov di ordine 2, secondo cui ogni parola dipende unicamente dalla precedente. La probabilità di una frase in un modello di bigrammi viene calcolata come il prodotto delle probabilità condizionate di ogni parola dato il suo predecessore.",
+        "livello": "base"
+    },
+    {
+        "id": 22,
+        "domanda": "Cos'è il fenomeno di overfitting in machine learning?",
+        "risposta": "L'overfitting si verifica quando un modello di machine learning impara a rappresentare troppo fedelmente i dati di addestramento, includendo anche il rumore o le particolarità specifiche di quei dati. Di conseguenza, il modello perde capacità di generalizzazione e offre prestazioni scarse su nuovi dati non visti, poiché è stato addestrato su dettagli non rappresentativi del problema generale.",
+        "livello": "base"
+    },
+    {
+        "id": 23,
+        "domanda": "Che cosa significa 'autocompletamento' in un modello di linguaggio?",
+        "risposta": "L'autocompletamento è una funzione dei modelli di linguaggio in cui il modello predice la parola o la frase successiva in base al contesto delle parole precedenti. Questa funzionalità è comune in applicazioni come i motori di ricerca o i sistemi di messaggistica, in cui il modello suggerisce completamenti plausibili per una frase parzialmente digitata.",
+        "livello": "base"
+    },
+    {
+        "id": 24,
+        "domanda": "Cos'è una matrice di embedding?",
+        "risposta": "Una matrice di embedding è una rappresentazione numerica che mappa ogni parola del vocabolario a un vettore continuo in uno spazio a bassa dimensione. Ogni riga della matrice rappresenta un embedding per una parola. Questa matrice è appresa durante l'addestramento e cattura le relazioni semantiche e sintattiche tra le parole.",
+        "livello": "base"
+    },
+    {
+        "id": 25,
+        "domanda": "Qual è lo scopo del token speciale [MASK]?",
+        "risposta": "Il token speciale [MASK] è usato nei modelli di linguaggio mascherati, come BERT, per indicare una posizione in una sequenza di testo che deve essere predetta dal modello. Questo approccio permette al modello di apprendere contesti bidirezionali durante l'addestramento, migliorando la comprensione del linguaggio.",
+        "livello": "base"
+    },
+    {
+        "id": 26,
+        "domanda": "Spiega il concetto di cross-entropy.",
+        "risposta": "La cross-entropy è una misura che confronta due distribuzioni di probabilità, spesso utilizzata come funzione di perdita in machine learning. Essa quantifica la discrepanza tra la distribuzione predetta dal modello e la distribuzione reale dei dati. Matematicamente, si calcola come la somma ponderata dei logaritmi delle probabilità predette, usando le probabilità reali come pesi.",
+        "livello": "base"
+    },
+    {
+        "id": 27,
+        "domanda": "Cosa significa 'sequenza di n-grammi'?",
+        "risposta": "Una sequenza di n-grammi è una sequenza di n parole consecutive in un testo. Ad esempio, in una frase composta da 5 parole, gli n-grammi di ordine 2 (bigrammi) sono tutte le coppie consecutive di parole. Gli n-grammi sono utilizzati nei modelli di linguaggio per rappresentare dipendenze locali tra le parole.",
+        "livello": "base"
+    },
+    {
+        "id": 28,
+        "domanda": "Qual è il ruolo del logaritmo nella misurazione dell'entropia?",
+        "risposta": "Il logaritmo nella misurazione dell'entropia serve a quantificare l'informazione associata alla probabilità di un evento. Permette di sommare le informazioni in modo lineare e di attenuare l'impatto di eventi improbabili, rendendo la misura più robusta. Ad esempio, eventi molto improbabili contribuiscono maggiormente all'entropia grazie al logaritmo.",
+        "livello": "base"
+    },
+    {
+        "id": 29,
+        "domanda": "Cos'è una distribuzione uniforme in probabilità?",
+        "risposta": "Una distribuzione uniforme in probabilità assegna la stessa probabilità a tutti gli eventi di uno spazio di possibilità. Ad esempio, in un dado equo, ogni faccia ha una probabilità di 1/6. Questa distribuzione rappresenta uno scenario di massima incertezza, in cui tutti gli eventi sono equiprobabili.",
+        "livello": "base"
+    },
+    {
+        "id": 30,
+        "domanda": "Cosa si intende per predizione di una parola successiva in un modello di linguaggio?",
+        "risposta": "La predizione di una parola successiva in un modello di linguaggio consiste nel calcolare la probabilità di ogni parola possibile dato il contesto delle parole precedenti. Questo compito è fondamentale per applicazioni come il completamento automatico o la generazione di testo.",
+        "livello": "base"
+    },
+    {
+        "id": 31,
+        "domanda": "Qual è la differenza tra un modello di bigrammi e uno di trigrammi?",
+        "risposta": "Un modello di bigrammi calcola la probabilità di una parola basandosi sulla parola immediatamente precedente, mentre un modello di trigrammi tiene conto delle due parole precedenti. Di conseguenza, il modello di trigrammi cattura maggiori dipendenze contestuali e relazioni tra le parole, ma richiede più dati per stimare accuratamente le probabilità e ha una maggiore complessità computazionale.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 32,
+        "domanda": "Come funziona l'algoritmo di smoothing di Laplace?",
+        "risposta": "Lo smoothing di Laplace, noto anche come add-one smoothing, è una tecnica utilizzata nei modelli di linguaggio per gestire la sparsità dei dati, assegnando una probabilità positiva a tutti gli eventi, anche quelli non osservati nel corpus di addestramento. Nel contesto di un modello bigramma, le probabilità condizionate vengono calcolate come: P(wi|wi-1) = (count(wi-1wi) + 1) / (∑w∈V count(wi-1w) + |V|), dove |V| è la dimensione del vocabolario.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 33,
+        "domanda": "Spiega il concetto di cross-entropy in relazione ai modelli di linguaggio.",
+        "risposta": "La cross-entropy è una misura che confronta due distribuzioni di probabilità, ad esempio la distribuzione predetta da un modello di linguaggio e la distribuzione vera. Per i modelli di linguaggio, la cross-entropy è utilizzata come funzione di perdita per addestrare il modello, poiché misura quanto la distribuzione predetta si discosta da quella reale. Minimizare la cross-entropy equivale a migliorare l'accuratezza del modello.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 34,
+        "domanda": "Quali sono i vantaggi delle embeddings dense rispetto a quelle one-hot?",
+        "risposta": "Le embeddings dense mappano le parole in uno spazio a dimensione ridotta, catturando relazioni semantiche e sintattiche tra le parole. A differenza delle rappresentazioni one-hot, che sono sparse e non esprimono correlazioni tra parole, le embeddings dense permettono di eseguire operazioni come il calcolo di similarità semantica e analogie. Inoltre, richiedono meno memoria e sono più efficienti per compiti di apprendimento automatico.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 35,
+        "domanda": "Descrivi il funzionamento di un RNN (Recurrent Neural Network).",
+        "risposta": "Un RNN (Recurrent Neural Network) è una rete neurale progettata per processare sequenze di dati, mantenendo una memoria delle informazioni precedenti attraverso uno stato nascosto che si aggiorna iterativamente a ogni passo temporale. Ad ogni passo, la rete riceve un input e combina questo con lo stato nascosto precedente per produrre un nuovo stato nascosto e un output. Questo meccanismo consente agli RNN di catturare le dipendenze temporali nelle sequenze.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 36,
+        "domanda": "Che cos'è la backpropagation attraverso il tempo (BPTT) e perché è necessaria negli RNN?",
+        "risposta": "La backpropagation attraverso il tempo (BPTT) è una variante dell'algoritmo di backpropagation utilizzata per addestrare RNN. Poiché un RNN processa sequenze temporalmente correlate, BPTT scompone il calcolo del gradiente su tutti i passi temporali della sequenza, propagando l'errore a ritroso attraverso il tempo. È essenziale per aggiornare i parametri della rete in modo da catturare efficacemente le dipendenze sequenziali.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 37,
+        "domanda": "Cos'è un modello di skip-gram e come viene utilizzato?",
+        "risposta": "Lo skip-gram è un modello utilizzato per apprendere embeddings delle parole, predicendo le parole del contesto basandosi su una parola centrale. Ad esempio, dato un centro 'casa', il modello cerca di predire parole come 'giardino' o 'famiglia' che appaiono vicine nel testo. Questo approccio è utilizzato in modelli come word2vec per rappresentare le parole in uno spazio vettoriale continuo.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 38,
+        "domanda": "Qual è il ruolo delle unità di memoria LSTM in un modello ricorrente?",
+        "risposta": "Le unità di memoria LSTM (Long Short-Term Memory) sono progettate per superare i problemi di gradiente esplosivo e vanishing negli RNN. Ogni unità LSTM utilizza un meccanismo di gate (input, output, forget) per controllare il flusso di informazioni e preservare la memoria rilevante per periodi di tempo più lunghi, consentendo alla rete di catturare dipendenze a lungo termine nelle sequenze.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 39,
+        "domanda": "Qual è la differenza tra attention e self-attention?",
+        "risposta": "L'attenzione (attention) è un meccanismo che consente a un modello di focalizzarsi su parti specifiche dell'input durante l'elaborazione, ad esempio, in un task di traduzione, il modello può concentrarsi su parole rilevanti della frase di origine. La self-attention, invece, è un tipo specifico di attenzione che calcola le dipendenze all'interno di una stessa sequenza, consentendo al modello di costruire rappresentazioni contestuali più ricche.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 40,
+        "domanda": "Cosa si intende per normalizzazione del layer (layer normalization)?",
+        "risposta": "La normalizzazione del layer è una tecnica utilizzata nei modelli neurali per stabilizzare l'addestramento, normalizzando le attivazioni di un layer per ciascun esempio nel batch. Questo aiuta a ridurre la variabilità delle attivazioni tra i neuroni e accelera la convergenza durante l'addestramento, migliorando la stabilità numerica del modello.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 41,
+        "domanda": "Che cosa rappresenta la causalità in un'attenzione causale?",
+        "risposta": "La causalità in un'attenzione causale implica che ogni token in una sequenza può considerare solo i token precedenti o quelli fino alla posizione corrente durante il calcolo dell'attenzione. Questo è fondamentale nei modelli di linguaggio causali, come GPT, dove l'attenzione è progettata per generare testo in modo sequenziale senza accedere alle informazioni future. La causalità è implementata utilizzando una maschera che impedisce l'accesso ai token successivi.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 42,
+        "domanda": "Qual è lo scopo di una funzione di attivazione in una rete neurale?",
+        "risposta": "Lo scopo di una funzione di attivazione in una rete neurale è introdurre non-linearità, permettendo al modello di apprendere rappresentazioni complesse e relazioni non lineari nei dati. Senza una funzione di attivazione, una rete profonda sarebbe equivalente a un singolo strato lineare. Funzioni comuni includono ReLU, sigmoid e tanh.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 43,
+        "domanda": "Che cos'è un modello encoder-decoder e dove viene utilizzato?",
+        "risposta": "Un modello encoder-decoder è un'architettura composta da due parti principali: un encoder, che trasforma un input in una rappresentazione compatta (il contesto), e un decoder, che utilizza questa rappresentazione per generare un output. È utilizzato in compiti di sequenza-a-sequenza, come la traduzione automatica o il riassunto di testi.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 44,
+        "domanda": "Come si utilizza il beam search per migliorare la generazione del testo?",
+        "risposta": "Il beam search migliora la generazione del testo mantenendo le \\(n\\) sequenze più promettenti a ogni passo di generazione, anziché scegliere sempre la parola con la massima probabilità come nel greedy search. Ciò consente di esplorare più possibilità, aumentando la probabilità di ottenere sequenze più fluide e coerenti.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 45,
+        "domanda": "Quali sono i principali problemi degli RNN tradizionali?",
+        "risposta": "Gli RNN tradizionali soffrono principalmente di due problemi: il gradiente esplosivo e il gradiente che svanisce, che limitano la capacità del modello di apprendere dipendenze a lungo termine. Inoltre, gli RNN sono difficili da parallelizzare, rendendo il loro addestramento più lento rispetto ad architetture come i Transformer.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 46,
+        "domanda": "Che ruolo giocano le embedding posizionali nei Transformer?",
+        "risposta": "Le embedding posizionali nei Transformer aggiungono informazioni sulla posizione dei token in una sequenza. Poiché i Transformer non sono sensibili all'ordine dei token (grazie al meccanismo di auto-attenzione), queste embedding permettono al modello di distinguere la posizione relativa dei token, migliorando la comprensione del contesto sequenziale.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 47,
+        "domanda": "Cos'è un'architettura multi-headed attention e quali sono i suoi benefici?",
+        "risposta": "L'architettura multi-headed attention utilizza più teste di attenzione parallele, ognuna delle quali apprende un diverso aspetto delle relazioni tra i token. Questo aumenta la capacità del modello di rappresentare dipendenze complesse e di catturare informazioni diverse in parallelo.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 48,
+        "domanda": "Spiega il concetto di fine-tuning in un modello pre-addestrato.",
+        "risposta": "Il fine-tuning consiste nel continuare l'addestramento di un modello pre-addestrato su un dataset specifico del dominio di interesse. Questo processo adatta il modello a un compito particolare, migliorandone le prestazioni senza dover addestrare il modello da zero.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 49,
+        "domanda": "Quali sono i principali vantaggi dell'utilizzo di modelli Transformer?",
+        "risposta": "I Transformer offrono vantaggi significativi, tra cui la capacità di gestire dipendenze a lungo termine grazie all'attenzione globale, l'efficienza computazionale dovuta alla parallelizzazione e la flessibilità nell'adattarsi a vari compiti NLP. Queste caratteristiche li rendono lo standard nei modelli di linguaggio moderni.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 50,
+        "domanda": "Cos'è un modello di linguaggio mascherato (MLM)?",
+        "risposta": "Un modello di linguaggio mascherato (MLM) è un tipo di modello di linguaggio che prevede token mancanti in una sequenza, utilizzando il contesto delle parole circostanti. Un esempio noto è BERT, che viene addestrato mascherando casualmente alcune parole e imparando a predirle.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 51,
+        "domanda": "Quali sono i vantaggi di un modello di linguaggio causale rispetto a uno mascherato?",
+        "risposta": "Un modello di linguaggio causale, come GPT, è progettato per generare testo in modo sequenziale, rendendolo particolarmente adatto a compiti di generazione come il completamento di frasi o la creazione di contenuti. A differenza dei modelli mascherati, che si concentrano sull'apprendimento bidirezionale per compiti di comprensione, i modelli causali possono generare output più coerenti e naturali in contesti creativi.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 52,
+        "domanda": "Spiega come viene definita una distribuzione di probabilità per la generazione di sequenze.",
+        "risposta": "Nella generazione di sequenze, una distribuzione di probabilità è definita per ogni token successivo in base al contesto dei token precedenti. La funzione softmax è spesso utilizzata per trasformare i logit (output del modello) in probabilità che sommano a 1, rappresentando le probabilità condizionate di ciascun token dato il contesto.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 53,
+        "domanda": "Che ruolo hanno i token [CLS] e [SEP] in BERT?",
+        "risposta": "In BERT, il token [CLS] è usato come rappresentazione aggregata dell'intera sequenza ed è spesso utilizzato per compiti di classificazione. Il token [SEP] separa le sequenze, consentendo al modello di distinguere tra diverse parti del testo, come in compiti di domande e risposte o classificazione.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 54,
+        "domanda": "Cosa si intende per 'massimo a posteriori' nella generazione di testo?",
+        "risposta": "Il 'massimo a posteriori' (MAP) nella generazione di testo si riferisce alla selezione della sequenza di parole con la massima probabilità a posteriori, data una distribuzione probabilistica del modello. Questa tecnica viene spesso utilizzata per trovare l'output più plausibile in compiti come la traduzione automatica.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 55,
+        "domanda": "Descrivi il concetto di embeddings specifiche del dominio.",
+        "risposta": "Le embeddings specifiche del dominio sono rappresentazioni vettoriali delle parole addestrate su corpora di testo appartenenti a un particolare dominio, come la medicina o il diritto. Queste embeddings catturano le sfumature semantiche e il vocabolario unico di quel dominio, migliorando le prestazioni dei modelli su compiti specifici.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 56,
+        "domanda": "Qual è il significato di pre-training nei modelli di linguaggio?",
+        "risposta": "Il pre-training nei modelli di linguaggio consiste nell'addestrare un modello su un vasto corpus di dati generali prima di specializzarlo su un compito specifico. Questo processo consente al modello di apprendere rappresentazioni linguistiche di base, che possono essere ulteriormente perfezionate attraverso il fine-tuning.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 57,
+        "domanda": "Che cosa sono le 'head di attenzione' nei modelli Transformer?",
+        "risposta": "Le 'head di attenzione' nei modelli Transformer sono componenti parallele che calcolano l'attenzione su diverse sottorappresentazioni dei dati. Ogni head cattura diversi aspetti delle relazioni tra i token, migliorando la capacità del modello di apprendere rappresentazioni complesse.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 58,
+        "domanda": "Qual è la differenza tra in-context learning e fine-tuning?",
+        "risposta": "L'in-context learning permette a un modello di utilizzare il contesto fornito nell'input per adattarsi a un compito senza modificare i parametri del modello. Il fine-tuning, invece, richiede l'aggiornamento dei parametri del modello utilizzando dati specifici per adattarlo a un compito particolare.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 59,
+        "domanda": "Cosa si intende per PEFT (Parameter-Efficient Fine-Tuning)?",
+        "risposta": "Il PEFT (Parameter-Efficient Fine-Tuning) è un approccio per ridurre il numero di parametri aggiornati durante il fine-tuning di un modello, utilizzando tecniche come adapter layers o LoRA. Questo consente un fine-tuning più rapido e con minore utilizzo di risorse computazionali.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 60,
+        "domanda": "Descrivi il problema del gradiente esplosivo e come può essere gestito.",
+        "risposta": "Il gradiente esplosivo si verifica quando i valori del gradiente diventano eccessivamente grandi durante la retropropagazione, causando instabilità nel modello. Può essere gestito utilizzando tecniche come il gradient clipping, che limita i valori massimi del gradiente, o adottando architetture più stabili come le LSTM.",
+        "livello": "intermedio"
+    },
+    {
+        "id": 61,
+        "domanda": "Come vengono calcolate le probabilità nel modello di n-grammi usando token sconosciuti?",
+        "risposta": "Nel modello di n-grammi, i token sconosciuti sono gestiti assegnando loro un token speciale, come ⟨UNK⟩, che rappresenta tutte le parole non presenti nel vocabolario. La probabilità di un n-gramma che include ⟨UNK⟩ viene calcolata utilizzando tecniche di smoothing, come lo smoothing di Laplace o di Kneser-Ney, per garantire che tutti gli n-grammi, inclusi quelli contenenti ⟨UNK⟩, abbiano una probabilità positiva.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 62,
+        "domanda": "Qual è il ruolo del calcolo dell'entropia nell'ottimizzazione dei modelli di linguaggio?",
+        "risposta": "Il calcolo dell'entropia serve a misurare l'incertezza o la sorpresa di una distribuzione di probabilità. Nell'ottimizzazione dei modelli di linguaggio, l'entropia è strettamente correlata alla funzione di perdita. Minimizzando la cross-entropy tra la distribuzione predetta e quella reale, il modello impara a generare previsioni più accurate e con meno incertezza.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 63,
+        "domanda": "Descrivi il funzionamento della self-attention nei Transformer.",
+        "risposta": "La self-attention è un meccanismo che permette a ciascun token di una sequenza di calcolare la sua relazione con tutti gli altri token nella stessa sequenza. Questo è ottenuto utilizzando matrici di query, key e value, che rappresentano rispettivamente il token di riferimento, i token correlati e l'informazione da aggregare. Il prodotto scalare tra query e key, normalizzato e pesato, viene usato per calcolare una combinazione ponderata dei value, consentendo al modello di catturare relazioni globali nel testo.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 64,
+        "domanda": "Come funziona il meccanismo di residual connection nei Transformer?",
+        "risposta": "Le residual connection nei Transformer aggiungono l'input originale di un layer alla sua uscita trasformata. Questo meccanismo aiuta a evitare la degradazione del gradiente, facilitando l'apprendimento in reti profonde. Le residual connection migliorano la stabilità del modello e permettono al gradiente di fluire più facilmente durante la retropropagazione.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 65,
+        "domanda": "Qual è il ruolo dell'ottimizzazione Adam nei modelli di linguaggio?",
+        "risposta": "L'ottimizzatore Adam combina i vantaggi della discesa del gradiente con momento e dell'adaptive learning rate, calcolando un tasso di apprendimento adattivo per ciascun parametro del modello. Questo lo rende particolarmente efficace per i modelli di linguaggio, dove i parametri possono avere scale diverse e aggiornamenti non uniformi.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 66,
+        "domanda": "Spiega il significato della Gibb's inequality nei modelli probabilistici.",
+        "risposta": "La Gibb's inequality afferma che l'entropia incrociata tra due distribuzioni, P e Q, è sempre maggiore o uguale all'entropia della distribuzione P, con l'uguaglianza valida solo se P = Q. Nei modelli probabilistici, questa disuguaglianza evidenzia l'importanza di minimizzare la discrepanza tra la distribuzione predetta dal modello e quella vera.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 67,
+        "domanda": "Che cosa significa fine-tuning con LoRA (Low-Rank Adaptation)?",
+        "risposta": "Il fine-tuning con LoRA (Low-Rank Adaptation) consiste nell'aggiungere matrici a basso rango ai pesi pre-addestrati del modello, modificando solo queste matrici durante il fine-tuning. Questo approccio riduce il numero di parametri da aggiornare, rendendo il fine-tuning più efficiente dal punto di vista computazionale.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 68,
+        "domanda": "Quali sono i principali vantaggi dei modelli autoregressivi rispetto ai modelli seq2seq?",
+        "risposta": "I modelli autoregressivi generano una sequenza un token alla volta, consentendo un controllo sequenziale durante la generazione, il che è utile per compiti di completamento del testo. I modelli seq2seq, invece, richiedono un contesto intero per generare la sequenza di output. I modelli autoregressivi sono spesso più semplici da addestrare e applicare, ma possono essere più lenti nella generazione rispetto ai modelli seq2seq.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 69,
+        "domanda": "Come viene applicata la causal attention nei modelli GPT?",
+        "risposta": "La causal attention nei modelli GPT viene implementata utilizzando una maschera che impedisce a ciascun token di 'vedere' i token successivi durante il calcolo dell'attenzione. Questo assicura che il modello generi il testo in modo sequenziale, rispettando la causalità temporale e impedendo fughe di informazione dai token futuri.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 70,
+        "domanda": "Quali sono le sfide computazionali della self-attention?",
+        "risposta": "Le principali sfide computazionali della self-attention includono il costo quadratico in termini di memoria e tempo computazionale rispetto alla lunghezza della sequenza, rendendola inefficiente per sequenze lunghe. Soluzioni come l'attenzione sparsa e i metodi basati su convoluzioni sono stati proposti per mitigare questo problema.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 71,
+        "domanda": "Descrivi il significato dell'embedding posizionale sinusoidale e come influenza i Transformer.",
+        "risposta": "Gli embedding posizionali sinusoidali rappresentano le posizioni dei token usando funzioni sinusoidali con diverse frequenze. Questa tecnica consente al modello di incorporare informazioni posizionali senza introdurre ulteriori parametri, influenzando il calcolo dell'attenzione attraverso un'indicazione dell'ordine dei token.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 72,
+        "domanda": "Come funzionano le architetture stacked RNN e quali sono i loro limiti?",
+        "risposta": "Le architetture stacked RNN utilizzano più livelli di reti neurali ricorrenti, dove lo stato nascosto di un livello viene passato come input al livello successivo. Questo approccio permette di catturare rappresentazioni più complesse e astratte. Tuttavia, i loro limiti includono problemi di gradiente esplosivo e vanishing, difficoltà nella parallelizzazione e alta complessità computazionale.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 73,
+        "domanda": "Qual è la differenza tra beam search e nucleus sampling?",
+        "risposta": "Beam search genera sequenze esplorando le \\(n\\) migliori opzioni a ogni passo, garantendo che la sequenza finale sia una delle più probabili secondo il modello. Nucleus sampling, invece, seleziona token basandosi su una distribuzione troncata fino a una soglia di probabilità cumulativa, rendendo la generazione più varia e creativa rispetto al beam search.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 74,
+        "domanda": "Come funziona l'addestramento con reinforcement learning basato su feedback umano (RLHF)?",
+        "risposta": "RLHF combina il reinforcement learning con feedback umano per allineare i modelli ai valori umani. Il processo prevede la raccolta di preferenze umane su output generati dal modello, la creazione di una funzione di ricompensa e l'addestramento del modello tramite un algoritmo di reinforcement learning come PPO (Proximal Policy Optimization) per massimizzare la ricompensa.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 75,
+        "domanda": "Che ruolo hanno le unità di gate nelle GRU rispetto alle LSTM?",
+        "risposta": "Le GRU (Gated Recurrent Unit) utilizzano due gate, il gate di aggiornamento e il gate di reset, per controllare il flusso di informazioni. A differenza delle LSTM, che hanno tre gate e una memoria separata, le GRU combinano lo stato nascosto e la memoria, rendendole più semplici e computazionalmente efficienti, pur mantenendo una buona capacità di apprendere dipendenze a lungo termine.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 76,
+        "domanda": "Quali sono le differenze tra BERT e GPT nelle loro architetture?",
+        "risposta": "BERT utilizza un'architettura bidirezionale, consentendo al modello di apprendere dal contesto a sinistra e a destra di ogni token, mentre GPT è un modello autoregressivo che elabora sequenze in modo unidirezionale, generando il testo da sinistra a destra. BERT è ottimizzato per compiti di comprensione del linguaggio, mentre GPT è più adatto a compiti di generazione.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 77,
+        "domanda": "Descrivi il concetto di masking stocastico nel pre-training di BERT.",
+        "risposta": "Il masking stocastico nel pre-training di BERT prevede la mascheratura casuale di una percentuale di token in una sequenza e l'apprendimento del modello per predire questi token basandosi sul contesto circostante. Questo approccio migliora la capacità del modello di catturare relazioni bidirezionali nei dati di addestramento.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 78,
+        "domanda": "Cosa si intende per 'spazio latente' negli embeddings e come viene appreso?",
+        "risposta": "Lo spazio latente è una rappresentazione vettoriale continua in cui parole o concetti simili sono vicini tra loro. Questo spazio viene appreso durante l'addestramento di modelli come word2vec o GloVe, utilizzando tecniche che ottimizzano la similarità semantica tra le parole in base al loro contesto nei dati di addestramento.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 79,
+        "domanda": "Qual è il ruolo della loss cross-entropy nella generazione condizionata?",
+        "risposta": "La cross-entropy è utilizzata come funzione di perdita per misurare la differenza tra la distribuzione predetta dal modello e la distribuzione reale dei dati di addestramento. Nella generazione condizionata, minimizzare la cross-entropy consente al modello di produrre sequenze coerenti rispetto al contesto o condizione forniti come input.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 80,
+        "domanda": "Come può un Transformer essere adattato per compiti di classificazione multi-label?",
+        "risposta": "Un Transformer può essere adattato per la classificazione multi-label aggiungendo un livello denso con funzioni di attivazione sigmoid per ogni etichetta, invece della softmax. Questo consente al modello di assegnare probabilità indipendenti a ciascuna etichetta, rendendolo adatto a compiti con più classi sovrapposte.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 81,
+        "domanda": "Che cosa sono le sequenze autoregressive e come sono utilizzate nei modelli di linguaggio?",
+        "risposta": "Le sequenze autoregressive sono sequenze in cui ogni elemento è predetto in base agli elementi precedenti. Nei modelli di linguaggio, come GPT, queste sequenze sono utilizzate per generare testo in modo sequenziale, dove ogni parola o token dipende dal contesto generato fino a quel punto.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 82,
+        "domanda": "Quali sono le principali innovazioni introdotte dal modello Transformer rispetto agli RNN?",
+        "risposta": "Il modello Transformer ha introdotto il meccanismo di attenzione, eliminando la dipendenza sequenziale degli RNN. Questa innovazione consente la parallelizzazione del calcolo e riduce significativamente il tempo di addestramento. Inoltre, il Transformer utilizza embedding posizionali per catturare l'ordine delle parole e sostituisce le reti ricorrenti con l'auto-attenzione, che permette al modello di catturare relazioni globali all'interno di una sequenza.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 83,
+        "domanda": "Come vengono utilizzati i corpus di addestramento specifici per il dominio nel fine-tuning?",
+        "risposta": "I corpus di addestramento specifici per il dominio vengono utilizzati nel fine-tuning per adattare un modello pre-addestrato a un contesto o settore specifico. Durante il fine-tuning, il modello apprende rappresentazioni linguistiche rilevanti per il dominio, migliorando le prestazioni in compiti specifici, come la classificazione di documenti medici o legali.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 84,
+        "domanda": "Descrivi il problema della vanishing gradient e come è stato risolto nelle LSTM.",
+        "risposta": "Il problema della vanishing gradient si verifica quando i gradienti diventano troppo piccoli durante la retropropagazione, impedendo al modello di aggiornare efficacemente i pesi. Le LSTM (Long Short-Term Memory) risolvono questo problema introducendo una struttura con gate e una memoria di stato che consente ai gradienti di fluire attraverso molti passi temporali, preservando le informazioni rilevanti per periodi più lunghi.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 85,
+        "domanda": "Che cos'è il modello Word2Vec e quali sono le sue applicazioni principali?",
+        "risposta": "Word2Vec è un modello per generare rappresentazioni vettoriali dense delle parole basate sul loro contesto. Utilizza architetture skip-gram o CBOW (Continuous Bag of Words) per apprendere relazioni semantiche tra parole. Le applicazioni principali includono il calcolo della similarità semantica, il clustering di parole e l'input per modelli NLP complessi.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 86,
+        "domanda": "Come funziona la stratificazione del pre-training nei modelli di linguaggio?",
+        "risposta": "La stratificazione del pre-training nei modelli di linguaggio implica l'addestramento progressivo di un modello su corpus di complessità crescente. Si inizia con dati generali per apprendere conoscenze linguistiche di base e si procede con dati più specifici per adattare il modello a compiti particolari. Questo approccio migliora l'efficienza e la specializzazione del modello.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 87,
+        "domanda": "Quali sono le differenze tra negative sampling e noise-contrastive estimation?",
+        "risposta": "Negative sampling e noise-contrastive estimation (NCE) sono tecniche per ridurre il costo computazionale nell'addestramento di modelli basati su probabilità. Negative sampling seleziona un sottoinsieme di esempi negativi per aggiornare il modello, mentre NCE approssima la probabilità utilizzando una distribuzione di rumore. Negative sampling è più semplice da implementare, ma NCE fornisce una stima più accurata delle probabilità.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 88,
+        "domanda": "Che ruolo gioca il loss scaling nei modelli di linguaggio su larga scala?",
+        "risposta": "Il loss scaling viene utilizzato per prevenire problemi di precisione numerica durante l'addestramento di modelli di linguaggio su larga scala con aritmetica a precisione mista. Scalando i valori della funzione di perdita, si evitano underflow nei gradienti, migliorando la stabilità del processo di addestramento.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 89,
+        "domanda": "Come viene ottimizzata la funzione di attenzione nei Transformer?",
+        "risposta": "La funzione di attenzione nei Transformer è ottimizzata riducendo il costo computazionale delle matrici query-key-value, ad esempio tramite attenzione sparsa o modelli efficienti come Linformer. Inoltre, tecniche di regularizzazione come il dropout sull'attenzione aiutano a migliorare la generalizzazione.",
+        "livello": "avanzato"
+    },
+    {
+        "id": 90,
+        "domanda": "Qual è il ruolo delle architetture encoder-decoder nei modelli di traduzione automatica?",
+        "risposta": "Le architetture encoder-decoder sono fondamentali per la traduzione automatica. L'encoder comprime l'intera frase di origine in una rappresentazione vettoriale, catturando il contesto globale, mentre il decoder genera la traduzione nella lingua di destinazione basandosi su questa rappresentazione. Questo approccio consente al modello di apprendere relazioni complesse tra lingue diverse.",
+        "livello": "avanzato"
+    }
+]

@@ -1,3 +1,17 @@
+#!/usr/bin/env python3
+
+"""
+CLI Interattiva con effetti speciali (colori, emoji, testo lampeggiante)
+------------------------------------------------------
+Assicura di avere installato la libreria 'colorama' prima di avviare lo script.
+Puoi installarla con:
+
+    pip install colorama
+
+Per gli effetti di testo lampeggiante e altre sequenze ANSI, alcuni terminali
+potrebbero non supportarle pienamente.
+"""
+
 import openai
 import json
 import os
@@ -5,25 +19,52 @@ import dotenv
 import requests
 import sys
 import re
+import time
 
-# Carica le variabili d'ambiente dal file .env
+# Per i colori e gli effetti ANSI
+try:
+    from colorama import init, Fore, Back, Style
+    init(autoreset=True)
+except ImportError:
+    print("[AVVISO] 'colorama' non installato. Installalo con 'pip install colorama' per i colori.")
+    class Fore:
+        RED = ''
+        GREEN = ''
+        YELLOW = ''
+        CYAN = ''
+        MAGENTA = ''
+        RESET = ''
+    class Back:
+        RESET = ''
+    class Style:
+        BRIGHT = ''
+        RESET_ALL = ''
+
+# Per testo lampeggiante (non tutti i terminali lo supportano)
+BLINK = "\033[5m"
+RESET = "\033[0m"
+
+# Se vuoi aggiungere altre emoji, puoi modificarle qui
+EMOJI_BOOK = "📚"
+EMOJI_STAR = "✨"
+EMOJI_ROBOT = "🤖"
+EMOJI_CLAP = "👏"
+EMOJI_FIRE = "🔥"
+EMOJI_COOL = "😎"
+
 dotenv.load_dotenv()
 
-# Imposta la chiave API di OpenAI
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# In alcuni ambienti recenti openai.Client() non è più necessario;
-# puoi usare direttamente openai.ChatCompletion per le chiamate.
-# Se la tua versione di libreria OpenAI supporta `openai.Client`, lascialo pure:
+# Prova a creare un client OpenAI se disponibile, altrimenti usa ChatCompletion
 try:
     client = openai.Client()
 except AttributeError:
-    # Se dà errore, lo sostituiamo con la chiamata diretta
     client = None
 
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
-# Costanti per i percorsi dei file
+# Percorsi file
 STUDENT_HISTORY_FILE = "student_history.json"
 DATASET_PATH = "Domande_e_Risposte.json"
 
@@ -55,7 +96,7 @@ def query_openai(messages, temperature=0.7, max_tokens=500):
             model="gpt-4o-mini",
             messages=messages,
             temperature=temperature,
-            max_tokens=max_tokens
+            max_tokens=max_tokens,
         )
         return response.choices[0].message.content.strip()
     else:
@@ -101,26 +142,22 @@ def generate_followup_mcq(question, correct_answer):
         {"role": "user", "content": prompt}
     ]
     response = query_openai(messages)
-    
-    # Prima di fare il parse, rimuoviamo eventuali backtick e testo superfluo
-    # usando una regex che cerca il contenuto tra ```json e ```
+
+    # Pulizia dell'eventuale codice tra ```json ... ```
     match = re.search(r"```json\s*(.*?)\s*```", response, re.DOTALL)
+    print(match)
     if match:
         json_str = match.group(1)
     else:
-        # In assenza di backtick, proviamo comunque a parsare la risposta
         json_str = response
 
-    # Prova a convertire la risposta "ripulita" in JSON
     try:
         mcqs = json.loads(json_str)
-
         if isinstance(mcqs, list):
             return mcqs
         else:
             return []
     except:
-        # Se non riesce a fare parse, ritorna lista vuota
         return []
 
 def check_mcq_answers(mcq_set, user_answers):
@@ -176,7 +213,7 @@ def search_youtube(concept, max_results=3):
             results.append({"title": title, "description": description, "link": link})
         return results
     else:
-        print(f"Errore nella richiesta YouTube API: {response.status_code}")
+        print(f"{Fore.RED}[ERRORE]{Fore.RESET} Richiesta YouTube API fallita: {response.status_code}")
         return []
 
 def generate_practical_example(concept, level):
@@ -189,17 +226,41 @@ def generate_practical_example(concept, level):
     return query_openai(messages)
 
 ############################
-# CLI "Main" Function
+# Effetti Speciali
 ############################
 
+def fancy_intro():
+    print(Fore.MAGENTA + Style.BRIGHT + "============================================")
+    print(
+        EMOJI_BOOK + "  " + BLINK + "BENVENUTO NELLA PIATTAFORMA DIDATTICA CLI" + RESET + "  " + EMOJI_BOOK
+    )
+    print("============================================" + Fore.RESET + Style.RESET_ALL + "\n")
+    # Piccola animazione
+    spinner_chars = ["|", "/", "-", "\\"]
+    print("Caricamento in corso ", end="")
+    for _ in range(8):
+        for char in spinner_chars:
+            print(f"\b{Fore.YELLOW}{char}{Fore.RESET}", end="", flush=True)
+            time.sleep(0.1)
+    print("\b ")
+    print(f"{EMOJI_STAR} Setup completato! {EMOJI_STAR}\n")
+
+
+def fancy_level_banner(level, question_index):
+    print(Fore.CYAN + Style.BRIGHT + "------------------------------------------------")
+    print(f"{EMOJI_FIRE} LIVELLO: {level.upper()} | DOMANDA # {question_index} {EMOJI_FIRE}")
+    print("------------------------------------------------" + Fore.RESET + Style.RESET_ALL)
+
+
+############################
+# CLI "Main" Function
+############################
 def main():
-    print("============================================")
-    print("  BENVENUTO NELLA PIATTAFORMA DIDATTICA CLI  ")
-    print("============================================\n")
+    fancy_intro()
 
     # Verifichiamo che esista il file dataset
     if not os.path.exists(DATASET_PATH):
-        print("[ERRORE] Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json nella cartella.")
+        print(f"{Fore.RED}[ERRORE]{Fore.RESET} Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json.")
         sys.exit(1)
 
     # Carichiamo il dataset
@@ -209,16 +270,16 @@ def main():
     # Input ID studente
     student_id = ""
     while not student_id.strip():
-        student_id = input("Inserisci il tuo ID studente (obbligatorio): ").strip()
+        student_id = input(Fore.GREEN + Style.BRIGHT + "Inserisci il tuo ID studente (obbligatorio): " + Fore.RESET + Style.RESET_ALL).strip()
 
-    # Carica lo storico degli studenti
+    # Carica lo storico
     history = load_student_history()
     if student_id not in history:
         # Se è la prima volta che questo studente accede, creiamo una struttura di base
         history[student_id] = {
-            "level": "base",        # partiamo dal livello base
-            "current_index": 0,     # indice della domanda corrente in quel livello
-            "progress": []          # lista di tentativi (domanda, risposta, feedback, ecc.)
+            "level": "base",         # partiamo dal livello base
+            "current_index": 0,      # indice domanda corrente
+            "progress": []
         }
 
     student_data = history[student_id]
@@ -230,48 +291,46 @@ def main():
 
     if not level_questions:
         print(f"[INFO] Nessuna domanda disponibile per il livello '{level}'.")
-        print("Esci dal programma.")
+        print("Esco dal programma.")
         sys.exit(0)
 
     while True:
-
         # Se sforiamo il numero di domande disponibili
         if current_index >= len(level_questions):
-            print("Hai completato TUTTE le domande disponibili per il livello attuale!")
-            print("Complimenti, non ci sono altre domande da svolgere.")
+            print(Fore.YELLOW + Style.BRIGHT + "Hai completato TUTTE le domande disponibili per il livello attuale!" + Fore.RESET)
+            print(f"Complimenti {EMOJI_CLAP}, non ci sono altre domande da svolgere.")
             sys.exit(0)
 
         # Otteniamo la domanda corrente
         current_question = level_questions[current_index]
 
-        # Stampa la domanda
-        print("\n------------------------------------------------")
-        print(f"LIVELLO: {level.upper()} | DOMANDA #{current_index + 1}")
-        print("------------------------------------------------")
-        print(f"Domanda: {current_question['domanda']}\n")
+        # Banner di livello
+        fancy_level_banner(level, current_index + 1)
 
-        # Se nel dataset ci sono opzioni preimpostate, le mostriamo
+        print(Fore.MAGENTA + "Domanda:" + Fore.RESET, current_question['domanda'], "\n")
+
+        # Se nel dataset ci sono opzioni preimpostate
         if "opzioni" in current_question and isinstance(current_question["opzioni"], dict):
-            print("Opzioni disponibili:")
+            print(Fore.BLUE + "Opzioni disponibili:" + Fore.RESET)
             for key, option in current_question["opzioni"].items():
                 print(f"  {key}: {option}")
             print("")
 
         # Richiesta risposta studente
-        print("Scrivi la tua risposta qui sotto (conferma con Invio):")
-        student_response = input(">> ").strip()
+        print(Fore.GREEN + Style.BRIGHT + "Scrivi la tua risposta qui sotto (conferma con Invio):" + Fore.RESET + Style.RESET_ALL)
+        student_response = input(EMOJI_ROBOT + " >> ").strip()
 
         # Se lo studente non inserisce nulla
         if not student_response:
-            print("[ATTENZIONE] Non hai inserito alcuna risposta. Rilancia il programma per riprovare.")
+            print("[ATTENZIONE] Non hai inserito alcuna risposta. Riavvia il programma per riprovare.")
             sys.exit(0)
 
-        # Valuta la risposta e mostra feedback
+        # Valuta la risposta
         feedback = evaluate_response(student_response, current_question["risposta"])
-        print("\n=== FEEDBACK SULLA TUA RISPOSTA ===")
+        print("\n" + Fore.YELLOW + Style.BRIGHT + "=== FEEDBACK SULLA TUA RISPOSTA ===" + Fore.RESET + Style.RESET_ALL)
         print(feedback)
 
-        # Salviamo il tentativo nel "progress"
+        # Salviamo il tentativo
         attempt = {
             "domanda": current_question["domanda"],
             "risposta_studente": student_response,
@@ -281,74 +340,70 @@ def main():
         student_data["progress"].append(attempt)
         save_student_history(history)
 
-        # Generiamo 3 domande a scelta multipla per testare la comprensione
+        # Generiamo 3 MCQ
         mcq_set = generate_followup_mcq(
             current_question["domanda"],
             current_question["risposta"]
         )
 
         if not mcq_set:
-            print("\n[ATTENZIONE] Non è stato possibile generare domande a scelta multipla.\n")
+            print("\n" + Fore.RED + "[ATTENZIONE]" + Fore.RESET + " Non è stato possibile generare domande a scelta multipla.")
             print("Procedo alla domanda successiva.")
             current_index += 1
             student_data["current_index"] = current_index
             save_student_history(history)
             continue
         else:
-            print("\nOra rispondi alle seguenti DOMANDE A SCELTA MULTIPLA (MCQ).")
+            print("\nOra rispondi alle seguenti " + Fore.CYAN + "DOMANDE A SCELTA MULTIPLA (MCQ)" + Fore.RESET + ".")
 
         # Ciclo di tentativi sulle MCQ
         while True:
             user_answers = []
 
-            # Mostra le MCQ e chiedi la risposta utente (A/B/C/D)
             for idx, mcq in enumerate(mcq_set):
-                print("\n--------------------------------------------")
-                print(f"MCQ {idx + 1}: {mcq['domanda']}")
+                print("\n" + Fore.MAGENTA + Style.BRIGHT + f"MCQ {idx + 1}:" + Fore.RESET + Style.RESET_ALL, mcq['domanda'])
                 for letter, text in mcq.get("opzioni", {}).items():
                     print(f"   {letter}: {text}")
-                print("--------------------------------------------")
+
                 answer = ""
                 while answer.upper() not in ["A", "B", "C", "D"]:
-                    answer = input("La tua risposta (A/B/C/D): ").strip()
+                    answer = input(EMOJI_ROBOT + " La tua risposta (A/B/C/D): ").strip()
                     if answer.upper() not in ["A", "B", "C", "D"]:
-                        print("[ERRORE] Devi inserire una delle quattro opzioni: A, B, C o D.")
+                        print(Fore.RED + "[ERRORE]" + Fore.RESET + " Devi inserire una delle quattro opzioni: A, B, C o D.")
                 user_answers.append(answer.upper())
 
-            # Verifichiamo se l'utente ha risposto correttamente a tutte
             if check_mcq_answers(mcq_set, user_answers):
-                print("\nCOMPLIMENTI! Hai risposto correttamente a tutte le domande a scelta multipla!")
-                # Aggiorniamo il tentativo come "understood"
+                print("\n" + Fore.GREEN + Style.BRIGHT + "COMPLIMENTI!" + Fore.RESET + Style.RESET_ALL + " Hai risposto correttamente a tutte le domande a scelta multipla!")
                 if student_data["progress"]:
                     student_data["progress"][-1]["understood"] = True
 
-                # Passiamo alla prossima domanda
                 student_data["current_index"] += 1
                 save_student_history(history)
 
-                # Se non ci sono più domande, concludiamo
                 if student_data["current_index"] >= len(level_questions):
-                    print("Hai completato tutte le domande disponibili per il livello attuale! Ottimo lavoro!")
+                    print(Fore.YELLOW + Style.BRIGHT + "Hai completato tutte le domande disponibili per il livello attuale!" + Fore.RESET)
+                    print(f"{EMOJI_COOL} Ottimo lavoro!")
                 else:
-                    # Domanda all'utente se vuole continuare
                     print("\nVuoi continuare con la prossima domanda? (s/n)")
-                    choice = input(">> ").strip().lower()
+                    choice = input(EMOJI_ROBOT + " >> ").strip().lower()
                     if choice != "s":
                         print("\nGrazie per aver usato la piattaforma didattica CLI.")
                         sys.exit(0)
                     else:
-                        print("Passiamo alla prossima domanda.\n")
+                        print("Passiamo alla prossima domanda...\n")
                         current_index += 1
                 break
             else:
-                print("\nAlcune risposte non sono corrette. Ecco delle risorse aggiuntive per aiutarti:\n")
+                print("\n" + Fore.RED + "Alcune risposte non sono corrette." + Fore.RESET + f" {EMOJI_STAR}Riproviamo!{EMOJI_STAR}\n")
 
-                # Generiamo query per YouTube
+                # Risorse aggiuntive
+                print("Ecco delle risorse aggiuntive per aiutarti:\n")
+
+                # YouTube
                 query = generate_yt_query(current_question["domanda"], current_question['risposta'], level)
                 videos = search_youtube(query)
 
-                # Mostriamo i video di YouTube
-                print("=== Video consigliati su YouTube ===\n")
+                print(Fore.YELLOW + Style.BRIGHT + "=== Video consigliati su YouTube ===\n" + Fore.RESET + Style.RESET_ALL)
                 if not videos:
                     print("(Nessun video trovato o errore nella richiesta.)\n")
                 else:
@@ -357,12 +412,11 @@ def main():
                         print(f"Descrizione: {vid['description']}")
                         print(f"Link: {vid['link']}\n")
 
-                # Esempio pratico
-                print("=== Esempio pratico ===")
+                print(Fore.YELLOW + Style.BRIGHT + "=== Esempio pratico ===" + Fore.RESET + Style.RESET_ALL)
                 example = generate_practical_example(current_question["domanda"], level)
                 print(example)
 
-                print("\n[RIPROVA] Rivedi le tue risposte e riprova a rispondere alle MCQ.\n")
+                print("\n[RIPROVA] Rivedi le tue risposte e riprova a rispondere alle MCQ.")
                 input("Premi Invio per continuare...")
 
 if __name__ == "__main__":

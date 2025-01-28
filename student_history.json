@@ -1,7 +1,7 @@
 {
     "1": {
         "level": "base",
-        "current_index": 5,
+        "current_index": 11,
         "progress": [
             {
                 "domanda": "Che cos'\u00e8 un modello linguistico?",
@@ -31,6 +31,54 @@
                 "domanda": "Cos'\u00e8 la perplessit\u00e0 e come si calcola?",
                 "risposta_studente": "Non la so",
                 "feedback": "Feedback:\n\nLa risposta dello studente \"Non la so\" \u00e8 inadeguata perch\u00e9 non affronta la domanda e non dimostra comprensione dell'argomento. \n\nCosa c'\u00e8 di giusto: La risposta dello studente esprime onestamente l'incertezza, ma non fornisce alcuna informazione utile.\n\nCosa c'\u00e8 di sbagliato: Non fornisce alcuna spiegazione o tentativo di rispondere, il che non \u00e8 accettabile in un contesto educativo.\n\nCome migliorare: Lo studente dovrebbe cercare di rispondere anche se non \u00e8 completamente sicuro, esprimendo le proprie conoscenze o intuizioni sull'argomento. Se non sa la risposta, potrebbe dire \"Non sono sicuro, ma penso che la perplessit\u00e0 riguardi la valutazione delle previsioni di un modello\". Questo dimostrerebbe un tentativo di partecipazione e comprensione del tema.",
+                "understood": true
+            },
+            {
+                "domanda": "Qual \u00e8 il significato del teorema della catena nei modelli linguistici?",
+                "risposta_studente": "Non me lo ricordo bene ma serve per calcolare pi\u00f9 efficacemente le probablit\u00e0\n",
+                "feedback": "La risposta dello studente contiene un'informazione parziale e imprecisa. \u00c8 corretto affermare che il teorema in questione serve a calcolare le probabilit\u00e0, ma manca di dettagli essenziali e specifici. La risposta corretta fornisce una spiegazione chiara e tecnica del teorema, evidenziando la decomposizione delle probabilit\u00e0 in termini di probabilit\u00e0 condizionate, il che \u00e8 fondamentale per comprendere il suo utilizzo.\n\nPer migliorare, lo studente dovrebbe:\n1. Fornire una spiegazione pi\u00f9 dettagliata e precisa del teorema.\n2. Includere la formula di decomposizione delle probabilit\u00e0.\n3. Spiegare il significato pratico del teorema in contesti di calcolo delle probabilit\u00e0.\n\nAggiungere questi elementi renderebbe la risposta pi\u00f9 completa e informativa.",
+                "understood": false
+            },
+            {
+                "domanda": "Qual \u00e8 il significato del teorema della catena nei modelli linguistici?",
+                "risposta_studente": "La chain rule serve a sfruttare la probabilit\u00e0 condizionata",
+                "feedback": "La risposta dello studente menziona correttamente che la chain rule (regola della catena) \u00e8 legata alla probabilit\u00e0 condizionata, ma \u00e8 troppo generica e non fornisce dettagli importanti. \n\n**Cosa c'\u00e8 di giusto:**\n- Riconosce che la chain rule riguarda la probabilit\u00e0 condizionata.\n\n**Cosa c'\u00e8 di sbagliato:**\n- Non spiega come la chain rule decomponi una probabilit\u00e0 in termini di probabilit\u00e0 condizionate.\n- Non fornisce informazioni sul contesto d'uso, come il calcolo di probabilit\u00e0 di sequenze complesse.\n\n**Come migliorare:**\n- Includere la formula della chain rule per chiarire il concetto.\n- Spiegare l'importanza della chain rule nel calcolo delle probabilit\u00e0 in contesti complessi, per dimostrare una comprensione pi\u00f9 approfondita del tema.",
+                "understood": false
+            },
+            {
+                "domanda": "Cosa sono i token di inizio e fine frase e perch\u00e9 sono importanti?",
+                "risposta_studente": "Non ricordo",
+                "feedback": "Feedback: La risposta dello studente \u00e8 insufficiente, in quanto non affronta la domanda e non fornisce alcuna informazione pertinente. La risposta corretta offre una spiegazione chiara e dettagliata sull'importanza dei token di inizio e fine nella gestione delle sequenze.\n\nCorrezione: Per migliorare, lo studente dovrebbe fornire informazioni specifiche sui token \u27e8s\u27e9 e \u27e8/s\u27e9, spiegando il loro ruolo e la loro funzione nel contesto delle sequenze. \u00c8 importante dimostrare comprensione e capacit\u00e0 di articolare concetti chiave.",
+                "understood": false
+            },
+            {
+                "domanda": "Quali sono le principali strategie per generare frasi da un modello linguistico?",
+                "risposta_studente": "Non ricordo niente",
+                "feedback": "Feedback: La risposta dello studente \u00e8 completamente inadeguata rispetto alla richiesta. Non fornisce alcuna informazione pertinente e dimostra una mancanza di preparazione sull'argomento. \n\nPer migliorare, sarebbe utile rivedere le strategie elencate nella risposta corretta e cercare di comprendere ciascun metodo. Studiare definizioni e applicazioni di Greedy Search, Beam Search e Sampling potrebbe aiutare a consolidare la comprensione e a rispondere in modo pi\u00f9 informato in futuro.",
+                "understood": false
+            },
+            {
+                "domanda": "Cos'\u00e8 l'entropia di un modello linguistico e perch\u00e9 \u00e8 importante?",
+                "risposta_studente": "non",
+                "feedback": "Feedback: La risposta dello studente \"non\" non \u00e8 pertinente e non risponde alla domanda. La risposta corretta fornisce una definizione chiara e dettagliata dell'entropia e della sua applicazione nei modelli linguistici, spiegando sia il concetto che la formula.\n\nCorrezioni suggerite:\n1. Fornire una definizione chiara dell'entropia e della sua importanza nei modelli linguistici.\n2. Includere la formula con una spiegazione del significato dei simboli utilizzati.\n3. Approfondire come un'entropia pi\u00f9 bassa indica una maggiore certezza nelle previsioni del modello.\n\nMigliorando in questi aspetti, la risposta sarebbe completa e informativa.",
+                "understood": false
+            },
+            {
+                "domanda": "Cos'\u00e8 l'entropia di un modello linguistico e perch\u00e9 \u00e8 importante?",
+                "risposta_studente": "Nien",
+                "feedback": "Feedback:\n\nLa risposta dello studente \"Nien\" \u00e8 totalmente insufficiente e non risponde alla domanda. Non fornisce alcuna informazione pertinente riguardo all'entropia, alla sua definizione o al suo ruolo nei modelli linguistici.\n\nCorrezioni e suggerimenti per migliorare:\n\n1. **Fornire una definizione chiara**: Inizia con una definizione di entropia in contesto probabilistico.\n2. **Spiegare l'importanza**: Spiega come l'entropia si applica ai modelli linguistici e il significato di un'entropia bassa.\n3. **Includere la formula**: Presenta la formula corretta per calcolare l'entropia e spiega i simboli utilizzati.\n\nEsempio di risposta corretta: \"L'entropia H(X) misura l'incertezza di una distribuzione di probabilit\u00e0. Nei modelli linguistici, un'entropia pi\u00f9 bassa indica una maggiore certezza nelle previsioni. La formula \u00e8 H(X) = - \u2211 P(x) log P(x), dove P(x) \u00e8 la probabilit\u00e0 dell'evento x.\"",
+                "understood": false
+            },
+            {
+                "domanda": "In che modo si minimizza l'entropia incrociata per apprendere un modello linguistico?",
+                "risposta_studente": "nsdia",
+                "feedback": "La risposta dello studente 'nsdia' non \u00e8 pertinente e non affronta il tema dell'entropia incrociata o della minimizzazione della discrepanza tra distribuzioni. \n\nFeedback:\n1. **Pertinenza**: La risposta non ha alcuna relazione con il concetto di entropia incrociata, quindi \u00e8 completamente errata.\n2. **Completezza**: La risposta corretta fornisce una spiegazione chiara e dettagliata del concetto, inclusi i parametri e i metodi di ottimizzazione.\n3. **Miglioramento**: Lo studente dovrebbe rivedere il concetto di entropia incrociata, comprendere la sua definizione e applicazione nel contesto del machine learning, e cercare di articolare la risposta in modo coerente e completo.\n\nIn sintesi, \u00e8 necessario ripartire dallo studio del tema per fornire una risposta informativa e corretta.",
+                "understood": false
+            },
+            {
+                "domanda": "Qual \u00e8 lo scopo della funzione softmax in un modello di linguaggio?",
+                "risposta_studente": "Non lo so",
+                "feedback": "La risposta dello studente \u00e8 molto insufficiente. Invece di fornire informazioni utili o una spiegazione, dichiara semplicemente di non sapere, il che non dimostra alcuna comprensione del concetto. \n\nPer migliorare, lo studente dovrebbe cercare di fornire almeno un tentativo di spiegazione, anche se non \u00e8 completamente sicuro della risposta. Potrebbe studiare e comprendere il concetto di softmax, focalizzandosi su come viene utilizzato nei modelli di linguaggio e sulle sue propriet\u00e0 matematiche. Una risposta pi\u00f9 completa e informativa sarebbe utile per dimostrare la comprensione del tema.",
                 "understood": true
             }
         ]

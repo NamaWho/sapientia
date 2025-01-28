@@ -2,14 +2,6 @@
 
 """
 CLI Interattiva con effetti speciali (colori, emoji, testo lampeggiante)
-------------------------------------------------------
-Assicura di avere installato la libreria 'colorama' prima di avviare lo script.
-Puoi installarla con:
-
-    pip install colorama
-
-Per gli effetti di testo lampeggiante e altre sequenze ANSI, alcuni terminali
-potrebbero non supportarle pienamente.
 """
 
 import openai
@@ -145,7 +137,6 @@ def generate_followup_mcq(question, correct_answer):
 
     # Pulizia dell'eventuale codice tra ```json ... ```
     match = re.search(r"```json\s*(.*?)\s*```", response, re.DOTALL)
-    print(match)
     if match:
         json_str = match.group(1)
     else:

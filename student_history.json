@@ -82,5 +82,23 @@
                 "understood": true
             }
         ]
+    },
+    "12": {
+        "level": "base",
+        "current_index": 1,
+        "progress": [
+            {
+                "domanda": "Che cos'\u00e8 un modello linguistico?",
+                "risposta_studente": "E' un modello probabilistico di generazione delle parole",
+                "feedback": "La risposta dello studente cattura l'idea principale di un modello linguistico come un'entit\u00e0 probabilistica, ma \u00e8 troppo semplificata e manca di dettagli cruciali. \n\n**Punti di forza:**\n- Riconosce correttamente che si tratta di un modello probabilistico.\n\n**Punti deboli:**\n- Non definisce cosa sia un modello linguistico.\n- Non menziona la funzione di assegnazione della probabilit\u00e0 a sequenze di parole.\n- Non spiega l'importanza del modello nel rappresentare e prevedere strutture linguistiche.\n- Manca un esempio pratico di applicazione.\n\n**Suggerimenti per migliorare:**\n- Includere una definizione pi\u00f9 completa di un modello linguistico.\n- Spiegare come funziona la probabilit\u00e0 nelle sequenze di parole.\n- Aggiungere un esempio concreto per illustrare l'uso del modello.\n\nIn questo modo, la risposta sarebbe pi\u00f9 informativa e in linea con la risposta corretta.",
+                "understood": true
+            },
+            {
+                "domanda": "Come si definisce un vocabolario?",
+                "risposta_studente": "Un vocabolario \u00e8 un insieme finito V di elementi, chiamati parole. Ogni parola w \u2208 V rappresenta una porzione atomica del linguaggio che il modello pu\u00f2 utilizzare. La dimensione del vocabolario |V| varia a seconda del contesto e dei dati utilizzati, ma una sfida comune \u00e8 come gestire parole sconosciute (Out Of Vocabulary, OOV).",
+                "feedback": "Feedback: La risposta dello studente \u00e8 identica alla risposta corretta. Questo significa che ha compreso perfettamente la definizione di vocabolario e i relativi concetti. \n\nPer migliorare, lo studente potrebbe espandere la risposta aggiungendo esempi pratici di come vengono gestite le parole OOV nei modelli di linguaggio, come l'uso di token speciali (ad esempio, un token per \"sconosciuto\") o tecniche di sub-parole come Byte Pair Encoding (BPE). Questo dimostrerebbe una comprensione pi\u00f9 approfondita del tema.",
+                "understood": false
+            }
+        ]
     }
 }

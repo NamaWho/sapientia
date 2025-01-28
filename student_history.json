@@ -1,98 +1,36 @@
 {
     "1": {
-        "level": "avanzato",
+        "level": "base",
+        "current_index": 5,
         "progress": [
             {
                 "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "1e1cs",
-                "feedback": "La risposta '1e1cs' non \u00e8 valida n\u00e9 comprensibile come spiegazione di un modello linguistico. Non fornisce alcuna informazione o contesto adeguato. Vediamo come migliorare la risposta, confrontandola con la risposta corretta.\n\n### Problemi Identificati:\n1. **Lacunosit\u00e0 della Risposta**: La risposta '1e1cs' non contiene parole significative o informazioni comprensibili. Sembra essere una stringa casuale di caratteri.\n   \n2. **Mancanza di Dettagli**: Non ci sono dettagli che descrivono cosa sia un modello linguistico, come funziona, o a cosa serva.\n\n3. **Assenza di Contesto**: Non \u00e8 fornito alcun contesto o esempio che possa aiutare a comprendere il concetto di modello linguistico.\n\n### Come Migliorare:\n- **Descrizione Chiara**: Fornisci una definizione chiara e concisa di un modello linguistico, come presentato nella risposta corretta. Ad esempio: \"Un modello linguistico \u00e8 una funzione che assegna una probabilit\u00e0 a una sequenza di parole.\"\n\n- **Scopo e Funzionalit\u00e0**: Spiega lo scopo del modello linguistico, ovvero prevedere e rappresentare strutture linguistiche. \u00c8 importante sottolineare come questi modelli aiutino a comprendere o generare testo.\n\n- **Formalizzazione**: Se appropriato, includi una formalizzazione o una definizione matematica come nella risposta corretta: \"Formalmente, \u00e8 una funzione P: V* \u2192 R dove V* \u00e8 l'insieme infinito delle sequenze di qualsiasi lunghezza su un vocabolario V.\" Tuttavia, questo potrebbe essere semplificato se il pubblico non \u00e8 incline a comprendere rappresentazioni matematiche avanzate.\n\n- **Esempi Practici**: Fornisci esempi concreti di come un modello linguistico pu\u00f2 essere utilizzato, ad esempio, nel prevedere la prossima parola in una frase o nel correggere errori ortografici.\n\n- **Linguaggio Accessibile**: Assicurati che la tua risposta utilizzi un linguaggio comprensibile per il tuo pubblico, evitando tecnicismi non necessari senza spiegazione.\n\nImplementando questi miglioramenti, potresti ottenere una risposta che non solo sia corretta ma anche facilmente comprensibile ed educativa per chiunque la legga.",
-                "understood": false
-            },
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "Non lo so bene",
-                "feedback": "La risposta 'Non lo so bene' \u00e8 completamente fuori dal contesto e non risponde correttamente alla domanda. Quindi la valutazione \u00e8 0/10.",
-                "understood": false
-            },
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "noin lo so",
-                "feedback": "La risposta 'noin lo so' \u00e8 completamente fuori contesto rispetto alla risposta corretta fornita. Non fornisce alcuna informazione sul modello linguistico, che era l'argomento richiesto. Quindi, questa risposta \u00e8 inadeguata e imprecisa.",
+                "risposta_studente": "Non lo so",
+                "feedback": "Feedback:\n\nLa risposta dello studente \"Non lo so\" \u00e8 completamente inadeguata e non risponde alla domanda. La risposta corretta fornisce una spiegazione dettagliata e precisa riguardo ai modelli linguistici, descrivendo la loro funzione, la rappresentazione matematica e un esempio pratico.\n\nPer migliorare, lo studente dovrebbe:\n\n1. **Studiare la definizione**: Acquisire familiarit\u00e0 con i concetti di base sui modelli linguistici.\n2. **Praticare la formulazione di risposte**: Esercitarsi nella scrittura di risposte che includano definizioni e esempi.\n3. **Non temere di esprimere incertezze**: Se non si conosce la risposta, \u00e8 meglio riconoscerlo e chiedere chiarimenti piuttosto che restare in silenzio. \n\nIn generale, \u00e8 importante cercare di fornire almeno una risposta parziale o chiedere aiuto se non si \u00e8 sicuri.",
                 "understood": true
             },
             {
-                "domanda": "Qual \u00e8 la differenza tra un modello di bigrammi e uno di trigrammi?",
-                "risposta": "ndasd",
-                "feedback": "La risposta 'ndasd' \u00e8 completamente fuori contesto e non ha senso rispetto alla risposta corretta. Quindi, la valutazione \u00e8 molto povera.",
-                "understood": true
-            }
-        ]
-    },
-    "23": {
-        "level": "avanzato",
-        "progress": [
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "\u00e8 un modello probabilistico che serve a generare nuove parole ",
-                "feedback": "La risposta \u00e8 parzialmente corretta. Mentre \u00e8 vero che un modello linguistico pu\u00f2 essere usato per generare nuove parole, questa \u00e8 solo una piccola parte di ci\u00f2 che fa. La risposta corretta fornisce un quadro molto pi\u00f9 completo e accurato della funzione di un modello linguistico.",
+                "domanda": "Come si definisce un vocabolario?",
+                "risposta_studente": "Non lo so",
+                "feedback": "Feedback:\n\nLa risposta dello studente \"Non lo so\" \u00e8 completamente insufficiente e non fornisce alcuna informazione pertinente riguardo al vocabolario nel contesto del linguaggio e dei modelli. La risposta corretta, invece, spiega chiaramente cosa sia un vocabolario, come si compone e le sfide associate, come le parole sconosciute (OOV).\n\nPer migliorare, lo studente dovrebbe:\n\n1. **Studiare il concetto di vocabolario**: Comprendere cosa rappresenta un vocabolario e il suo ruolo in un modello linguistico.\n2. **Fornire dettagli**: Includere informazioni sulla dimensione del vocabolario e le problematiche legate alle parole sconosciute.\n3. **Esercitarsi**: Rispondere a domande simili per acquisire maggiore confidenza nei concetti linguistici. \n\nIncoraggio lo studente a cercare risorse o assistenza per colmare le lacune di conoscenza.",
                 "understood": true
             },
             {
-                "domanda": "Qual \u00e8 la differenza tra un modello di bigrammi e uno di trigrammi?",
-                "risposta": "Boh non la so\n",
-                "feedback": "La risposta 'Boh non la so' \u00e8 completamente inadeguata rispetto alla risposta corretta. Non fornisce alcuna informazione sulla domanda posta e mostra una mancanza di conoscenza o di volont\u00e0 di rispondere.",
+                "domanda": "Cos'\u00e8 un corpus di addestramento e come viene utilizzato?",
+                "risposta_studente": "\u00e9 il dataset su cui viene allenata la rete per imparare le dipendenze fra le parole",
+                "feedback": "Feedback:\n\nLa risposta dello studente coglie l'idea generale che un dataset (o corpus di addestramento) viene utilizzato per insegnare a una rete a riconoscere le dipendenze tra le parole. Tuttavia, manca di precisione e completezza rispetto alla definizione corretta.\n\nCosa c'\u00e8 di giusto:\n- Riconosce che il dataset serve per \"imparare\" le relazioni linguistiche.\n\nCosa c'\u00e8 di sbagliato:\n- Non menziona che si tratta di un sottoinsieme finito di sequenze linguistiche.\n- Non specifica l'uso del corpus per stimare i parametri di un modello linguistico.\n- Non accenna alla questione dell'infinit\u00e0 di V* e alla necessit\u00e0 di usare un campione per rappresentare la lingua.\n\nCome migliorare:\n- Includere i concetti di sottoinsieme finito e stima dei parametri.\n- Spiegare il motivo per cui si utilizza un corpus di addestramento, in particolare in relazione alla complessit\u00e0 del linguaggio.\n- Essere pi\u00f9 preciso nel linguaggio e nella terminologia per riflettere meglio le nozioni chiave.",
                 "understood": true
             },
             {
-                "domanda": "Come vengono calcolate le probabilit\u00e0 nel modello di n-grammi usando token sconosciuti?",
-                "risposta": "boh",
-                "feedback": "La risposta 'boh' \u00e8 completamente inadeguata rispetto alla risposta corretta. Non fornisce alcuna delle informazioni richieste e non dimostra alcuna comprensione del concetto del modello di n-grammi. La sua valutazione \u00e8 quindi molto bassa.",
+                "domanda": "Quali sono le principali metriche per valutare un modello linguistico?",
+                "risposta_studente": "Non le so",
+                "feedback": "Feedback: La risposta dello studente \u00e8 completamente insufficiente e non risponde alla domanda. La risposta corretta presenta due approcci chiari e dettagliati per la valutazione dei modelli, con spiegazioni delle metriche utilizzate. \n\nCosa c'\u00e8 di sbagliato: La risposta dello studente non fornisce alcuna informazione o comprensione del tema richiesto. L'affermazione \"Non le so\" indica una mancanza di preparazione o di conoscenza sull'argomento.\n\nCome migliorare: Lo studente dovrebbe rivedere il materiale relativo ai metodi di valutazione dei modelli, in particolare la valutazione intrinseca ed estrinseca. \u00c8 importante studiare le metriche comuni utilizzate in questo contesto e provare a formulare una risposta che riassuma questi concetti, magari anche con esempi pratici per chiarire la comprensione.",
                 "understood": true
             },
             {
-                "domanda": "Come vengono calcolate le probabilit\u00e0 nel modello di n-grammi usando token sconosciuti?",
-                "risposta": "Non la so\n",
-                "feedback": "La risposta 'Non la so' non \u00e8 corretta perch\u00e9 non fornisce nessuna delle informazioni richieste nella risposta corretta.",
-                "understood": true
-            },
-            {
-                "domanda": "Come vengono calcolate le probabilit\u00e0 nel modello di n-grammi usando token sconosciuti?",
-                "risposta": "dasd\n",
-                "feedback": "La risposta 'dasd' \u00e8 completamente errata rispetto alla risposta corretta. Non fornisce alcuna informazione pertinente o accurata sulla domanda posta.",
-                "understood": false
-            }
-        ]
-    },
-    "3": {
-        "level": "intermedio",
-        "progress": [
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "boh",
-                "feedback": "La risposta 'boh' \u00e8 completamente inadeguata rispetto alla risposta corretta. Non fornisce nessuna delle informazioni richieste e non dimostra alcuna comprensione del concetto di un modello linguistico.",
-                "understood": false
-            },
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "viso\n",
-                "feedback": "La risposta 'viso' non \u00e8 pertinente o corretta rispetto alla risposta fornita.",
-                "understood": false
-            },
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "dsad\n",
-                "feedback": "La risposta 'dsad' \u00e8 completamente errata rispetto alla risposta corretta fornita. Non fornisce alcuna informazione sulla domanda posta e sembra essere un insieme casuale di caratteri.",
-                "understood": true
-            }
-        ]
-    },
-    "21": {
-        "level": "intermedio",
-        "progress": [
-            {
-                "domanda": "Che cos'\u00e8 un modello linguistico?",
-                "risposta": "dsa",
-                "feedback": "La risposta 'dsa' \u00e8 completamente inadeguata rispetto alla risposta corretta. Non fornisce alcuna informazione pertinente o correlata al concetto di un modello linguistico.",
+                "domanda": "Cos'\u00e8 la perplessit\u00e0 e come si calcola?",
+                "risposta_studente": "Non la so",
+                "feedback": "Feedback:\n\nLa risposta dello studente \"Non la so\" \u00e8 inadeguata perch\u00e9 non affronta la domanda e non dimostra comprensione dell'argomento. \n\nCosa c'\u00e8 di giusto: La risposta dello studente esprime onestamente l'incertezza, ma non fornisce alcuna informazione utile.\n\nCosa c'\u00e8 di sbagliato: Non fornisce alcuna spiegazione o tentativo di rispondere, il che non \u00e8 accettabile in un contesto educativo.\n\nCome migliorare: Lo studente dovrebbe cercare di rispondere anche se non \u00e8 completamente sicuro, esprimendo le proprie conoscenze o intuizioni sull'argomento. Se non sa la risposta, potrebbe dire \"Non sono sicuro, ma penso che la perplessit\u00e0 riguardi la valutazione delle previsioni di un modello\". Questo dimostrerebbe un tentativo di partecipazione e comprensione del tema.",
                 "understood": true
             }
         ]

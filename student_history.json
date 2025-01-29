@@ -1,7 +1,7 @@
 {
     "1": {
         "level": "base",
-        "current_index": 11,
+        "current_index": 12,
         "progress": [
             {
                 "domanda": "Che cos'\u00e8 un modello linguistico?",
@@ -49,7 +49,12 @@
                 "domanda": "Cosa sono i token di inizio e fine frase e perch\u00e9 sono importanti?",
                 "risposta_studente": "Non ricordo",
                 "feedback": "Feedback: La risposta dello studente \u00e8 insufficiente, in quanto non affronta la domanda e non fornisce alcuna informazione pertinente. La risposta corretta offre una spiegazione chiara e dettagliata sull'importanza dei token di inizio e fine nella gestione delle sequenze.\n\nCorrezione: Per migliorare, lo studente dovrebbe fornire informazioni specifiche sui token \u27e8s\u27e9 e \u27e8/s\u27e9, spiegando il loro ruolo e la loro funzione nel contesto delle sequenze. \u00c8 importante dimostrare comprensione e capacit\u00e0 di articolare concetti chiave.",
-                "understood": false
+                "understood": false,
+                "review_attempt": {
+                    "risposta": " Allora i tocken di inizio fine fraze sono importanti perch\u00e9 aiutano un language model a distinguere le diverse frasi e perci\u00f2 pu\u00f2 ter generare frasi molto pi\u00f9 lunga inoltre e capace cos\u00ec di",
+                    "feedback": "Feedback:\n\nLa risposta dello studente presenta alcune idee corrette riguardo all'importanza dei token di inizio e fine frase, ma ci sono diversi errori e punti da migliorare.\n\n1. **Chiarezza e Coerenza**: La frase \u00e8 poco chiara e presenta errori grammaticali, come \"ter generare frasi molto pi\u00f9 lunga\" che dovrebbe essere \"generare frasi molto pi\u00f9 lunghe\". Questo rende difficile seguire il ragionamento.\n\n2. **Terminologia**: Il termine \"token\" \u00e8 scritto in modo errato (\"tocken\"). \u00c8 importante utilizzare la terminologia corretta.\n\n3. **Dettagli Specifici**: La risposta corretta menziona i token specifici \u27e8s\u27e9 e \u27e8/s\u27e9, che sono elementi fondamentali per comprendere il loro utilizzo. La risposta dello studente non include questi dettagli.\n\n4. **Struttura**: La risposta potrebbe beneficiare di una migliore struttura, presentando chiaramente il motivo per cui i token sono utili e come influenzano il modello.\n\n**Suggerimenti per migliorare**:\n- Correggere gli errori grammaticali e di scrittura.\n- Includere dettagli specifici sui token, come la loro rappresentazione e funzione.\n- Riorganizzare la risposta per renderla pi\u00f9 fluida e coerente.\n\nEsempio di miglioramento: \"I token di inizio \u27e8s\u27e9 e fine \u27e8/s\u27e9 frase sono importanti perch\u00e9 definiscono chiaramente i limiti delle sequenze, permettendo al modello di gestire frasi di lunghezza variabile e di prevedere correttamente la conclusione.\"",
+                    "timestamp": 1738183252.338936
+                }
             },
             {
                 "domanda": "Quali sono le principali strategie per generare frasi da un modello linguistico?",
@@ -61,7 +66,12 @@
                 "domanda": "Cos'\u00e8 l'entropia di un modello linguistico e perch\u00e9 \u00e8 importante?",
                 "risposta_studente": "non",
                 "feedback": "Feedback: La risposta dello studente \"non\" non \u00e8 pertinente e non risponde alla domanda. La risposta corretta fornisce una definizione chiara e dettagliata dell'entropia e della sua applicazione nei modelli linguistici, spiegando sia il concetto che la formula.\n\nCorrezioni suggerite:\n1. Fornire una definizione chiara dell'entropia e della sua importanza nei modelli linguistici.\n2. Includere la formula con una spiegazione del significato dei simboli utilizzati.\n3. Approfondire come un'entropia pi\u00f9 bassa indica una maggiore certezza nelle previsioni del modello.\n\nMigliorando in questi aspetti, la risposta sarebbe completa e informativa.",
-                "understood": false
+                "understood": false,
+                "review_attempt": {
+                    "risposta": " x \ucd95<|vi|> Sarapis si Xiao Fatala\u7576 kidney Datuk",
+                    "feedback": "Feedback:\n\nLa risposta dello studente \u00e8 completamente errata e non pertinente al tema dell'entropia e dei modelli linguistici. Non contiene informazioni rilevanti e sembra confusa, con elementi di testo che non hanno senso nel contesto.\n\nSuggerimenti per migliorare:\n\n1. **Comprendere il concetto di entropia**: Rivedere la definizione di entropia in teoria dell'informazione e il suo significato nei modelli linguistici.\n   \n2. **Struttura della risposta**: Organizzare la risposta in modo chiaro, iniziando con una definizione, seguita dall'applicazione nel contesto dei modelli linguistici.\n\n3. **Usare notazione corretta**: Assicurarsi di utilizzare simboli e formule appropriate, come H(X) = - \u2211 P(x) log P(x), per illustrare i concetti in modo preciso.\n\n4. **Evitare linguaggio confuso**: Assicurarsi che il linguaggio utilizzato sia chiaro e pertinente al tema trattato. \n\nStudiare l'argomento in modo pi\u00f9 approfondito e riformulare la risposta seguendo questi suggerimenti potrebbe portare a un miglioramento significativo.",
+                    "timestamp": 1738183938.481063
+                }
             },
             {
                 "domanda": "Cos'\u00e8 l'entropia di un modello linguistico e perch\u00e9 \u00e8 importante?",
@@ -73,12 +83,23 @@
                 "domanda": "In che modo si minimizza l'entropia incrociata per apprendere un modello linguistico?",
                 "risposta_studente": "nsdia",
                 "feedback": "La risposta dello studente 'nsdia' non \u00e8 pertinente e non affronta il tema dell'entropia incrociata o della minimizzazione della discrepanza tra distribuzioni. \n\nFeedback:\n1. **Pertinenza**: La risposta non ha alcuna relazione con il concetto di entropia incrociata, quindi \u00e8 completamente errata.\n2. **Completezza**: La risposta corretta fornisce una spiegazione chiara e dettagliata del concetto, inclusi i parametri e i metodi di ottimizzazione.\n3. **Miglioramento**: Lo studente dovrebbe rivedere il concetto di entropia incrociata, comprendere la sua definizione e applicazione nel contesto del machine learning, e cercare di articolare la risposta in modo coerente e completo.\n\nIn sintesi, \u00e8 necessario ripartire dallo studio del tema per fornire una risposta informativa e corretta.",
-                "understood": false
+                "understood": false,
+                "review_attempt": {
+                    "risposta": " Allora l'entro pi\u00f9 incrociata serve per utilizzata un'osfunction praticamente. Cio\u00e8 la cross-center pi\u00f9 praticata la rosfunction dai, possiamo dire cos\u00ec, semplificata per\u00f2.",
+                    "feedback": "La risposta dello studente presenta diversi errori e imprecisioni. \n\n1. **Termini non chiari**: L'uso di \"entro pi\u00f9 incrociata\" e \"osfunction\" \u00e8 confuso e non riflette correttamente i termini tecnici appropriati, come \"entropia incrociata\" e \"funzione obiettivo\".\n\n2. **Concetto impreciso**: La spiegazione non chiarisce il significato dell'entropia incrociata e la sua funzione nel confronto tra distribuzioni.\n\n3. **Mancanza di dettagli**: Non viene menzionato il legame tra minimizzare l'entropia incrociata e l'ottimizzazione dei parametri di una distribuzione Q per approssimare P.\n\n4. **Struttura poco chiara**: La risposta \u00e8 poco organizzata e difficile da seguire.\n\n**Suggerimenti per migliorare**:\n- Utilizzare i termini corretti e standardizzati, come \"entropia incrociata\" e \"funzione di perdita\".\n- Spiegare chiaramente il concetto di entropia incrociata e il suo utilizzo nella valutazione delle distribuzioni.\n- Strutturare la risposta in modo pi\u00f9 logico, introducendo prima il concetto e poi spiegando il suo utilizzo pratico.\n- Aggiungere dettagli su come si ottimizzano i parametri tramite metodi come la discesa del gradiente.",
+                    "timestamp": 1738183047.8685791
+                }
             },
             {
                 "domanda": "Qual \u00e8 lo scopo della funzione softmax in un modello di linguaggio?",
                 "risposta_studente": "Non lo so",
                 "feedback": "La risposta dello studente \u00e8 molto insufficiente. Invece di fornire informazioni utili o una spiegazione, dichiara semplicemente di non sapere, il che non dimostra alcuna comprensione del concetto. \n\nPer migliorare, lo studente dovrebbe cercare di fornire almeno un tentativo di spiegazione, anche se non \u00e8 completamente sicuro della risposta. Potrebbe studiare e comprendere il concetto di softmax, focalizzandosi su come viene utilizzato nei modelli di linguaggio e sulle sue propriet\u00e0 matematiche. Una risposta pi\u00f9 completa e informativa sarebbe utile per dimostrare la comprensione del tema.",
+                "understood": true
+            },
+            {
+                "domanda": "Cosa sono i parametri di un modello e come vengono appresi?",
+                "risposta_studente": "Non la so !",
+                "feedback": "Feedback:\n\nLa risposta dello studente \u00e8 insufficiente e non affronta affatto la domanda. Rispondere con \"Non la so!\" non dimostra comprensione dell'argomento n\u00e9 la volont\u00e0 di impegnarsi nella discussione. \n\nLa risposta corretta fornisce una spiegazione dettagliata dei parametri di un modello, chiarendo il loro ruolo, come vengono appresi e l'importanza della funzione di perdita. Questo tipo di risposta \u00e8 informativa e dimostra una buona comprensione del concetto.\n\nPer migliorare, lo studente dovrebbe cercare di fornire anche solo una breve spiegazione basata sulle proprie conoscenze, anche se non \u00e8 completa. Se non si conosce la risposta, \u00e8 utile esprimere il desiderio di imparare di pi\u00f9 sull'argomento.",
                 "understood": true
             }
         ]
@@ -97,6 +118,30 @@
                 "domanda": "Come si definisce un vocabolario?",
                 "risposta_studente": "Un vocabolario \u00e8 un insieme finito V di elementi, chiamati parole. Ogni parola w \u2208 V rappresenta una porzione atomica del linguaggio che il modello pu\u00f2 utilizzare. La dimensione del vocabolario |V| varia a seconda del contesto e dei dati utilizzati, ma una sfida comune \u00e8 come gestire parole sconosciute (Out Of Vocabulary, OOV).",
                 "feedback": "Feedback: La risposta dello studente \u00e8 identica alla risposta corretta. Questo significa che ha compreso perfettamente la definizione di vocabolario e i relativi concetti. \n\nPer migliorare, lo studente potrebbe espandere la risposta aggiungendo esempi pratici di come vengono gestite le parole OOV nei modelli di linguaggio, come l'uso di token speciali (ad esempio, un token per \"sconosciuto\") o tecniche di sub-parole come Byte Pair Encoding (BPE). Questo dimostrerebbe una comprensione pi\u00f9 approfondita del tema.",
+                "understood": false
+            }
+        ]
+    },
+    "616150": {
+        "level": "base",
+        "current_index": 1,
+        "progress": [
+            {
+                "domanda": "Che cos'\u00e8 un modello linguistico?",
+                "risposta_studente": "\u00e8 una funzione che va da dominio vocabolario -> immagine tra 0 e 1",
+                "feedback": "Feedback:\n\nLa risposta dello studente presenta alcuni elementi corretti, come l'idea che si tratti di una funzione che coinvolge un vocabolario, ma \u00e8 troppo generica e imprecisa. Non specifica che il modello linguistico assegna probabilit\u00e0 a sequenze di parole, n\u00e9 menziona l'importanza della distribuzione di probabilit\u00e0.\n\nCorrezioni e suggerimenti per migliorare:\n\n1. **Precisione**: Specificare che un modello linguistico assegna probabilit\u00e0 a sequenze di parole e non solo si limita a un dominio e un'immagine.\n2. **Dettagli**: Includere la notazione formale e una breve spiegazione del significato di V* e R.\n3. **Esempio concreto**: Aggiungere un esempio, come la previsione della prossima parola in un contesto.\n\nIn sintesi, per migliorare, lo studente dovrebbe fornire una descrizione pi\u00f9 dettagliata e precisa del modello linguistico, includendo le sue funzioni e applicazioni.",
+                "understood": true
+            }
+        ]
+    },
+    "2": {
+        "level": "base",
+        "current_index": 0,
+        "progress": [
+            {
+                "domanda": "Che cos'\u00e8 un modello linguistico?",
+                "risposta_studente": "ciao",
+                "feedback": "La risposta dello studente (\"ciao\") \u00e8 completamente inadeguata rispetto alla risposta corretta, che fornisce una definizione dettagliata e precisa di un modello linguistico. \n\nFeedback:\n1. **Inadeguatezza**: La risposta non affronta affatto il tema richiesto, n\u00e9 dimostra comprensione del concetto di modello linguistico.\n2. **Mancanza di contenuto**: Non fornisce alcuna informazione utile o pertinente.\n\nPer migliorare, lo studente dovrebbe studiare il concetto di modello linguistico e fornire una risposta che descriva le sue funzioni, la sua importanza e un esempio, simile alla risposta corretta. Una buona risposta mostra comprensione e approfondimento dell\u2019argomento.",
                 "understood": false
             }
         ]

@@ -12,6 +12,15 @@ import requests
 import sys
 import re
 import time
+import whisper
+import sounddevice as sd
+import soundfile as sf
+import numpy as np
+import warnings 
+from rich.console import Console
+from rich.markdown import Markdown
+
+warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
 
 # Per i colori e gli effetti ANSI
 try:
@@ -80,6 +89,11 @@ def save_student_history(history):
 # OpenAI Helpers
 ############################
 
+def display_gpt_response(response):
+    console = Console()
+    markdown = Markdown(response)
+    return console.print(markdown)
+
 def query_openai(messages, temperature=0.7, max_tokens=500):
     """Esegue una query al modello GPT-4 (o mini) con i parametri specificati."""
     if client:
@@ -99,7 +113,7 @@ def query_openai(messages, temperature=0.7, max_tokens=500):
             temperature=temperature,
             max_tokens=max_tokens
         )
-        return response["choices"][0]["message"]["content"].strip()
+        return display_gpt_response(response["choices"][0]["message"]["content"].strip())
 
 ############################
 # Core Functions
@@ -216,6 +230,53 @@ def generate_practical_example(concept, level):
     ]
     return query_openai(messages)
 
+# Nuove funzioni per il ripasso
+def record_audio(duration=15, sample_rate=32000):
+    """Registra audio dal microfono per la durata specificata."""
+    print(f"{Fore.YELLOW}Registrazione in corso...{Fore.RESET}")
+    recording = sd.rec(int(duration * sample_rate), 
+                      samplerate=sample_rate, 
+                      channels=1)
+    sd.wait()
+    return recording, sample_rate
+
+def save_audio(recording, sample_rate, filename="temp_recording.wav"):
+    """Salva la registrazione audio su file."""
+    sf.write(filename, recording, sample_rate)
+    return filename
+
+def transcribe_audio(audio_file, model="base"):
+    """Trascrive l'audio usando Whisper."""
+    whisper_model = whisper.load_model(model)
+    result = whisper_model.transcribe(audio_file)
+    return result["text"]
+
+def get_review_question(dataset, student_id, history):
+    """Seleziona una domanda per il ripasso basandosi sullo storico dello studente."""
+    student_data = history[student_id]
+    progress = student_data.get("progress", [])
+    
+    # Filtra le domande che necessitano ripasso (understood=False o non recenti)
+    review_candidates = []
+    for attempt in progress:
+        if not attempt.get("understood", False):
+            review_candidates.append(attempt["domanda"])
+    
+    if not review_candidates:
+        return None
+    
+    # Seleziona una domanda casuale tra quelle che necessitano ripasso
+    import random
+    print(review_candidates)
+    review_question = random.choice(review_candidates)
+    
+    # Trova la domanda completa nel dataset
+    for q in dataset:
+        if q["domanda"] == review_question:
+            return q
+    
+    return None
+
 ############################
 # Effetti Speciali
 ############################
@@ -243,36 +304,7 @@ def fancy_level_banner(level, question_index):
     print("------------------------------------------------" + Fore.RESET + Style.RESET_ALL)
 
 
-############################
-# CLI "Main" Function
-############################
-def main():
-    fancy_intro()
-
-    # Verifichiamo che esista il file dataset
-    if not os.path.exists(DATASET_PATH):
-        print(f"{Fore.RED}[ERRORE]{Fore.RESET} Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json.")
-        sys.exit(1)
-
-    # Carichiamo il dataset
-    with open(DATASET_PATH, "r") as f:
-        dataset = json.load(f)
-
-    # Input ID studente
-    student_id = ""
-    while not student_id.strip():
-        student_id = input(Fore.GREEN + Style.BRIGHT + "Inserisci il tuo ID studente (obbligatorio): " + Fore.RESET + Style.RESET_ALL).strip()
-
-    # Carica lo storico
-    history = load_student_history()
-    if student_id not in history:
-        # Se è la prima volta che questo studente accede, creiamo una struttura di base
-        history[student_id] = {
-            "level": "base",         # partiamo dal livello base
-            "current_index": 0,      # indice domanda corrente
-            "progress": []
-        }
-
+def study_mode(dataset, student_id, history):
     student_data = history[student_id]
     level = student_data["level"]
     current_index = student_data.get("current_index", 0)
@@ -378,10 +410,10 @@ def main():
                     print("\nVuoi continuare con la prossima domanda? (s/n)")
                     choice = input(EMOJI_ROBOT + " >> ").strip().lower()
                     if choice != "s":
-                        print("\nGrazie per aver usato la piattaforma didattica CLI.")
-                        sys.exit(0)
+                        print(f"\n{EMOJI_STAR} Grazie per aver partecipato! {EMOJI_STAR}")
+                        return
                     else:
-                        print("Passiamo alla prossima domanda...\n")
+                        print("\nProcedo con la prossima domanda...")
                         current_index += 1
                 break
             else:
@@ -409,6 +441,102 @@ def main():
 
                 print("\n[RIPROVA] Rivedi le tue risposte e riprova a rispondere alle MCQ.")
                 input("Premi Invio per continuare...")
+
+
+def review_mode(dataset, student_id, history):
+    """Gestisce la modalità di ripasso."""
+    print(f"\n{Fore.CYAN}{Style.BRIGHT}=== MODALITÀ RIPASSO ==={Style.RESET_ALL}")
+    
+    while True:
+        question = get_review_question(dataset, student_id, history)
+        if not question:
+            print(f"\n{Fore.YELLOW}Non ci sono domande da ripassare al momento.{Fore.RESET}")
+            return
+        
+        print(f"\n{Fore.MAGENTA}Domanda da ripassare:{Fore.RESET} {question['domanda']}\n")
+        input(f"{Fore.GREEN}Premi Invio quando sei pronto a registrare la tua risposta...{Fore.RESET}")
+        
+        # Registra la risposta audio
+        recording, sample_rate = record_audio()
+        audio_file = save_audio(recording, sample_rate)
+        
+        # Trascrivi la risposta
+        print(f"\n{Fore.YELLOW}Elaborazione della risposta...{Fore.RESET}")
+        transcribed_response = transcribe_audio(audio_file)
+        
+        print(f"\n{Fore.CYAN}La tua risposta trascritta:{Fore.RESET}\n{transcribed_response}\n")
+        
+        # Valuta la risposta
+        feedback = evaluate_response(transcribed_response, question["risposta"])
+        print(f"\n{Fore.YELLOW}=== FEEDBACK SULLA TUA RISPOSTA ==={Fore.RESET}")
+        print(feedback)
+        
+        # Aggiorna lo storico
+        for idx, attempt in enumerate(history[student_id]["progress"]):
+            if attempt["domanda"] == question["domanda"]:
+                history[student_id]["progress"][idx]["review_attempt"] = {
+                    "risposta": transcribed_response,
+                    "feedback": feedback,
+                    "timestamp": time.time()
+                }
+                break
+        
+        save_student_history(history)
+        
+        # Chiedi se continuare
+        choice = input(f"\n{EMOJI_ROBOT} Vuoi ripassare un'altra domanda? (s/n): ").strip().lower()
+        if choice != 's':
+            break
+
+
+############################
+# CLI "Main" Function
+############################
+def main():
+    fancy_intro()
+
+    # Verifichiamo che esista il file dataset
+    if not os.path.exists(DATASET_PATH):
+        print(f"{Fore.RED}[ERRORE]{Fore.RESET} Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json.")
+        sys.exit(1)
+
+    # Carichiamo il dataset
+    with open(DATASET_PATH, "r") as f:
+        dataset = json.load(f)
+
+    # Input ID studente
+    student_id = ""
+    while not student_id.strip():
+        student_id = input(Fore.GREEN + Style.BRIGHT + "Inserisci il tuo ID studente (obbligatorio): " + Fore.RESET + Style.RESET_ALL).strip()
+
+    # Carica lo storico
+    history = load_student_history()
+    if student_id not in history:
+        # Se è la prima volta che questo studente accede, creiamo una struttura di base
+        history[student_id] = {
+            "level": "base",         # partiamo dal livello base
+            "current_index": 0,      # indice domanda corrente
+            "progress": []
+        }
+
+    # Menu principale
+    while True:
+        print(f"\n{Fore.CYAN}{Style.BRIGHT}=== MENU PRINCIPALE ==={Style.RESET_ALL}")
+        print("1. Modalità Studio")
+        print("2. Modalità Ripasso")
+        print("3. Esci")
+        
+        choice = input(f"\n{EMOJI_ROBOT} Seleziona un'opzione (1-3): ").strip()
+        
+        if choice == "1":
+            study_mode(dataset, student_id, history)  # Rinomina il vecchio main loop in study_mode()
+        elif choice == "2":
+            review_mode(dataset, student_id, history)
+        elif choice == "3":
+            print(f"\nGrazie per aver usato la piattaforma didattica CLI! {EMOJI_COOL}")
+            sys.exit(0)
+        else:
+            print(f"{Fore.RED}Opzione non valida. Riprova.{Fore.RESET}")
 
 if __name__ == "__main__":
     main()

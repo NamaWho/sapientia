@@ -101,6 +101,18 @@
                 "risposta_studente": "Non la so !",
                 "feedback": "Feedback:\n\nLa risposta dello studente \u00e8 insufficiente e non affronta affatto la domanda. Rispondere con \"Non la so!\" non dimostra comprensione dell'argomento n\u00e9 la volont\u00e0 di impegnarsi nella discussione. \n\nLa risposta corretta fornisce una spiegazione dettagliata dei parametri di un modello, chiarendo il loro ruolo, come vengono appresi e l'importanza della funzione di perdita. Questo tipo di risposta \u00e8 informativa e dimostra una buona comprensione del concetto.\n\nPer migliorare, lo studente dovrebbe cercare di fornire anche solo una breve spiegazione basata sulle proprie conoscenze, anche se non \u00e8 completa. Se non si conosce la risposta, \u00e8 utile esprimere il desiderio di imparare di pi\u00f9 sull'argomento.",
                 "understood": true
+            },
+            {
+                "domanda": "Spiega cosa rappresenta una distribuzione di probabilit\u00e0 in un modello di linguaggio.",
+                "risposta_studente": "Non lo so",
+                "feedback": "",
+                "understood": false
+            },
+            {
+                "domanda": "Spiega cosa rappresenta una distribuzione di probabilit\u00e0 in un modello di linguaggio.",
+                "risposta_studente": "Non saprei sai? Professore che dici?",
+                "feedback": "Feedback:\n\nLa risposta dello studente \u00e8 inadeguata rispetto alla risposta corretta. Manca completamente di contenuto informativo e non dimostra comprensione del concetto di distribuzione di probabilit\u00e0 in un modello di linguaggio. Inoltre, l'atteggiamento di incertezza e richiesta di conferma al professore non \u00e8 appropriato in un contesto di valutazione.\n\nPer migliorare, lo studente dovrebbe: \n1. Studiare il concetto di distribuzione di probabilit\u00e0 e il suo ruolo nei modelli di linguaggio.\n2. Fornire una spiegazione chiara e concisa, utilizzando termini appropriati e esempi per illustrare il concetto.\n3. Mostrare iniziativa nel cercare di rispondere, piuttosto che chiedere conferma senza fornire una propria opinione. \n\nIn sintesi, \u00e8 fondamentale mostrare comprensione del materiale e cercare di formulare risposte autonome.",
+                "understood": false
             }
         ]
     },
@@ -136,13 +148,30 @@
     },
     "2": {
         "level": "base",
-        "current_index": 0,
+        "current_index": 1,
         "progress": [
             {
                 "domanda": "Che cos'\u00e8 un modello linguistico?",
                 "risposta_studente": "ciao",
                 "feedback": "La risposta dello studente (\"ciao\") \u00e8 completamente inadeguata rispetto alla risposta corretta, che fornisce una definizione dettagliata e precisa di un modello linguistico. \n\nFeedback:\n1. **Inadeguatezza**: La risposta non affronta affatto il tema richiesto, n\u00e9 dimostra comprensione del concetto di modello linguistico.\n2. **Mancanza di contenuto**: Non fornisce alcuna informazione utile o pertinente.\n\nPer migliorare, lo studente dovrebbe studiare il concetto di modello linguistico e fornire una risposta che descriva le sue funzioni, la sua importanza e un esempio, simile alla risposta corretta. Una buona risposta mostra comprensione e approfondimento dell\u2019argomento.",
+                "understood": false,
+                "review_attempt": {
+                    "risposta": " un modello linguistico \u00e8 un modello che assegna una probabilit\u00e0 alle parole in modo da seleccionare la parola successiva come quella con pi\u00f9 probabilit\u00e0 di essere",
+                    "feedback": "La risposta dello studente contiene alcuni elementi corretti, come l'idea che un modello linguistico assegna probabilit\u00e0 alle parole e prevede la parola successiva. Tuttavia, mancano dettagli cruciali, come la definizione formale e la descrizione della funzione utilizzata per rappresentare le probabilit\u00e0 delle sequenze di parole. Inoltre, l'uso del termine \"seleccionar\" \u00e8 un errore di ortografia (dovrebbe essere \"selezionare\").\n\nPer migliorare, lo studente dovrebbe:\n1. Includere una definizione pi\u00f9 completa del modello linguistico, specificando che si tratta di una funzione che lavora su sequenze di parole.\n2. Fornire un esempio concreto di come il modello possa essere utilizzato per la previsione delle parole.\n3. Correggere l'errore di ortografia.\n\nUn esempio di risposta migliorata potrebbe essere: \"Un modello linguistico \u00e8 una funzione che assegna probabilit\u00e0 a sequenze di parole, utilizzata per prevedere la parola successiva in un contesto. Ad esempio, pu\u00f2 prevedere che dopo 'Il gatto \u00e8 sul...' segua 'tetto' o 'divano', a seconda delle probabilit\u00e0 associate.\"",
+                    "timestamp": 1738186152.9235048
+                }
+            },
+            {
+                "domanda": "Che cos'\u00e8 un modello linguistico?",
+                "risposta_studente": "dsad",
+                "feedback": "",
                 "understood": false
+            },
+            {
+                "domanda": "Che cos'\u00e8 un modello linguistico?",
+                "risposta_studente": "Non so",
+                "feedback": "La risposta dello studente, \"Non so\", \u00e8 completamente inadeguata rispetto alla risposta corretta. Manca di contenuto e non dimostra comprensione del concetto di modello linguistico.\n\nPer migliorare, lo studente dovrebbe cercare di comprendere il concetto di modello linguistico, includendo la sua definizione, la funzione che svolge e un esempio pratico. Potrebbe studiare le basi del funzionamento dei modelli linguistici e come vengono utilizzati nella previsione del testo. Un approccio pi\u00f9 attivo, come la ricerca o la discussione con un insegnante, potrebbe anche aiutare a chiarire eventuali dubbi.",
+                "understood": true
             }
         ]
     }

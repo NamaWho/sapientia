@@ -94,7 +94,7 @@ def display_gpt_response(response):
     markdown = Markdown(response)
     return console.print(markdown)
 
-def query_openai(messages, temperature=0.7, max_tokens=500):
+def query_openai(messages, temperature=0.7, max_tokens=500, stream=True):
     """Esegue una query al modello GPT-4 (o mini) con i parametri specificati."""
     if client:
         # Se la tua versione OpenAI supporta 'client.chat.completions.create'
@@ -103,17 +103,33 @@ def query_openai(messages, temperature=0.7, max_tokens=500):
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
+            stream=True
         )
-        return response.choices[0].message.content.strip()
     else:
         # Altrimenti, usa la chiamata standard "openai.ChatCompletion.create"
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=messages,
             temperature=temperature,
-            max_tokens=max_tokens
+            max_tokens=max_tokens, 
+            stream=True
         )
-        return display_gpt_response(response["choices"][0]["message"]["content"].strip())
+    
+    # Stampare lo stream man mano che arriva
+    full_response = ""
+    for chunk in response:
+        if hasattr(chunk, 'choices'):
+            for choice in chunk.choices:
+                if hasattr(choice, 'delta') and hasattr(choice.delta, 'content'):
+                    content = choice.delta.content
+                    if content:
+                        full_response += content
+                        if stream:
+                            print(content, end="", flush=True)
+
+    print()  # Nuova riga alla fine della risposta
+    return full_response  # Se vuoi usarlo altrove
+    # return display_gpt_response(response["choices"][0]["message"]["content"].strip())
 
 ############################
 # Core Functions
@@ -147,7 +163,7 @@ def generate_followup_mcq(question, correct_answer):
         {"role": "system", "content": "Sei un tutor che genera quiz a scelta multipla in formato JSON."},
         {"role": "user", "content": prompt}
     ]
-    response = query_openai(messages)
+    response = query_openai(messages, stream=False)
 
     # Pulizia dell'eventuale codice tra ```json ... ```
     match = re.search(r"```json\s*(.*?)\s*```", response, re.DOTALL)
@@ -190,7 +206,7 @@ def generate_yt_query(question, answer, level):
         {"role": "system", "content": "Sei un tutor che estrae parole chiave per una query di ricerca su YouTube."},
         {"role": "user", "content": prompt}
     ]
-    return query_openai(messages)
+    return query_openai(messages, stream=False)
 
 def search_youtube(concept, max_results=3):
     """Effettua una ricerca su YouTube con le parole chiave specificate e restituisce i risultati."""
@@ -267,7 +283,6 @@ def get_review_question(dataset, student_id, history):
     
     # Seleziona una domanda casuale tra quelle che necessitano ripasso
     import random
-    print(review_candidates)
     review_question = random.choice(review_candidates)
     
     # Trova la domanda completa nel dataset
@@ -349,9 +364,8 @@ def study_mode(dataset, student_id, history):
             sys.exit(0)
 
         # Valuta la risposta
-        feedback = evaluate_response(student_response, current_question["risposta"])
         print("\n" + Fore.YELLOW + Style.BRIGHT + "=== FEEDBACK SULLA TUA RISPOSTA ===" + Fore.RESET + Style.RESET_ALL)
-        print(feedback)
+        feedback = evaluate_response(student_response, current_question["risposta"])
 
         # Salviamo il tentativo
         attempt = {
@@ -467,9 +481,8 @@ def review_mode(dataset, student_id, history):
         print(f"\n{Fore.CYAN}La tua risposta trascritta:{Fore.RESET}\n{transcribed_response}\n")
         
         # Valuta la risposta
-        feedback = evaluate_response(transcribed_response, question["risposta"])
         print(f"\n{Fore.YELLOW}=== FEEDBACK SULLA TUA RISPOSTA ==={Fore.RESET}")
-        print(feedback)
+        feedback = evaluate_response(transcribed_response, question["risposta"])
         
         # Aggiorna lo storico
         for idx, attempt in enumerate(history[student_id]["progress"]):

@@ -1,7 +1,7 @@
 {
     "1": {
         "level": "base",
-        "current_index": 12,
+        "current_index": 14,
         "progress": [
             {
                 "domanda": "Che cos'\u00e8 un modello linguistico?",
@@ -37,7 +37,12 @@
                 "domanda": "Qual \u00e8 il significato del teorema della catena nei modelli linguistici?",
                 "risposta_studente": "Non me lo ricordo bene ma serve per calcolare pi\u00f9 efficacemente le probablit\u00e0\n",
                 "feedback": "La risposta dello studente contiene un'informazione parziale e imprecisa. \u00c8 corretto affermare che il teorema in questione serve a calcolare le probabilit\u00e0, ma manca di dettagli essenziali e specifici. La risposta corretta fornisce una spiegazione chiara e tecnica del teorema, evidenziando la decomposizione delle probabilit\u00e0 in termini di probabilit\u00e0 condizionate, il che \u00e8 fondamentale per comprendere il suo utilizzo.\n\nPer migliorare, lo studente dovrebbe:\n1. Fornire una spiegazione pi\u00f9 dettagliata e precisa del teorema.\n2. Includere la formula di decomposizione delle probabilit\u00e0.\n3. Spiegare il significato pratico del teorema in contesti di calcolo delle probabilit\u00e0.\n\nAggiungere questi elementi renderebbe la risposta pi\u00f9 completa e informativa.",
-                "understood": false
+                "understood": false,
+                "review_attempt": {
+                    "risposta": " La chain rule serve a utilizzare il torniamo della probabilit\u00e0 condizionate, per calculari la probabilit\u00e0 di una parola successiva da cela.",
+                    "feedback": "La risposta dello studente presenta alcune imprecisioni e confusione terminologica. Ecco il feedback:\n\n1. **Terminologia**: La frase \"torniamo della probabilit\u00e0 condizionate\" \u00e8 poco chiara e sembra un errore di scrittura. Dovrebbe essere \"teorema delle probabilit\u00e0 condizionate\".\n\n2. **Chiarezza espositiva**: La spiegazione \u00e8 vaga. Non si spiega adeguatamente cosa sia la chain rule e come funzioni. \u00c8 importante menzionare che questa regola consente di decomporre la probabilit\u00e0 di una sequenza in un prodotto di probabilit\u00e0 condizionate.\n\n3. **Correttezza**: La frase \"calculari la probabilit\u00e0 di una parola successiva da cela\" \u00e8 confusa e non esprime correttamente il concetto. Dovrebbe essere \"calcolare la probabilit\u00e0 di una parola successiva in base alle parole precedenti\".\n\n**Suggerimenti per migliorare**:\n- Utilizzare la terminologia corretta e chiara.\n- Espandere la spiegazione, includendo la formula della chain rule per le probabilit\u00e0.\n- Essere pi\u00f9 specifici nel descrivere come la chain rule \u00e8 utilizzata per calcolare probabilit\u00e0 in sequenze.\n\nUna versione migliorata potrebbe essere: \"La chain rule delle probabilit\u00e0 condizionate permette di decomporre la probabilit\u00e0 di una sequenza di parole in un prodotto di probabilit\u00e0 condizionate, facilitando cos\u00ec il calcolo delle probabilit\u00e0 in modo computazionalmente efficiente.\"",
+                    "timestamp": 1738186628.8249412
+                }
             },
             {
                 "domanda": "Qual \u00e8 il significato del teorema della catena nei modelli linguistici?",
@@ -113,6 +118,18 @@
                 "risposta_studente": "Non saprei sai? Professore che dici?",
                 "feedback": "Feedback:\n\nLa risposta dello studente \u00e8 inadeguata rispetto alla risposta corretta. Manca completamente di contenuto informativo e non dimostra comprensione del concetto di distribuzione di probabilit\u00e0 in un modello di linguaggio. Inoltre, l'atteggiamento di incertezza e richiesta di conferma al professore non \u00e8 appropriato in un contesto di valutazione.\n\nPer migliorare, lo studente dovrebbe: \n1. Studiare il concetto di distribuzione di probabilit\u00e0 e il suo ruolo nei modelli di linguaggio.\n2. Fornire una spiegazione chiara e concisa, utilizzando termini appropriati e esempi per illustrare il concetto.\n3. Mostrare iniziativa nel cercare di rispondere, piuttosto che chiedere conferma senza fornire una propria opinione. \n\nIn sintesi, \u00e8 fondamentale mostrare comprensione del materiale e cercare di formulare risposte autonome.",
                 "understood": false
+            },
+            {
+                "domanda": "Spiega cosa rappresenta una distribuzione di probabilit\u00e0 in un modello di linguaggio.",
+                "risposta_studente": "E' una distribuzione necessaria per generare la prossima parola data una sequenza in input",
+                "feedback": "Feedback:\n\nLa risposta dello studente coglie l'essenza della funzione di una distribuzione nel contesto di un modello di linguaggio, sottolineando che \u00e8 necessaria per generare la prossima parola. Tuttavia, manca di precisione e dettagli importanti. \n\nCosa c'\u00e8 di giusto:\n- Riconoscere che la distribuzione \u00e8 necessaria per generare la prossima parola \u00e8 corretto.\n\nCosa c'\u00e8 di sbagliato:\n- La risposta \u00e8 troppo generica e non spiega cosa sia una distribuzione di probabilit\u00e0 n\u00e9 come funzioni in un modello di linguaggio. Inoltre, non menziona il concetto di contesto o di assegnazione di probabilit\u00e0 a eventi linguistici.\n\nCome migliorare:\n- Includere una definizione pi\u00f9 chiara di distribuzione di probabilit\u00e0 e come questa si applica nel modello di linguaggio.\n- Aggiungere esempi specifici per illustrare come la probabilit\u00e0 di una parola successiva \u00e8 calcolata in base al contesto fornito da parole precedenti.\n\nUna risposta migliorata potrebbe essere: \"Una distribuzione di probabilit\u00e0 in un modello di linguaggio calcola la probabilit\u00e0 che una parola o una sequenza di parole appaia in base al contesto fornito da parole precedenti, permettendo cos\u00ec di generare la parola successiva.\"",
+                "understood": true
+            },
+            {
+                "domanda": "Cos'\u00e8 un corpus di addestramento?",
+                "risposta_studente": "non so",
+                "feedback": "Feedback: La risposta dello studente \u00e8 completamente inadeguata, poich\u00e9 non fornisce alcuna informazione utile riguardo al concetto di corpus di addestramento. La risposta corretta offre una definizione chiara e dettagliata, spiegando l'importanza e l'uso di un corpus nel contesto dell'addestramento dei modelli di linguaggio.\n\nMiglioramenti: Lo studente dovrebbe iniziare a studiare il concetto di corpus di addestramento, cercando fonti affidabili come testi accademici o risorse online. Potrebbe essere utile prendere appunti sui punti chiave e provare a riformulare le informazioni con parole proprie per migliorare la comprensione. Inoltre, \u00e8 importante non esitare a chiedere chiarimenti se ci sono dubbi su un argomento.",
+                "understood": true
             }
         ]
     },

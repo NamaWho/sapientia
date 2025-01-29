@@ -450,8 +450,8 @@ def study_mode(dataset, student_id, history):
                         print(f"Link: {vid['link']}\n")
 
                 print(Fore.YELLOW + Style.BRIGHT + "=== Esempio pratico ===" + Fore.RESET + Style.RESET_ALL)
-                example = generate_practical_example(current_question["domanda"], level)
-                print(example)
+                generate_practical_example(current_question["domanda"], level)
+
 
                 print("\n[RIPROVA] Rivedi le tue risposte e riprova a rispondere alle MCQ.")
                 input("Premi Invio per continuare...")

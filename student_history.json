@@ -1,7 +1,7 @@
 {
     "1": {
         "level": "base",
-        "current_index": 14,
+        "current_index": 15,
         "progress": [
             {
                 "domanda": "Che cos'\u00e8 un modello linguistico?",
@@ -130,6 +130,18 @@
                 "risposta_studente": "non so",
                 "feedback": "Feedback: La risposta dello studente \u00e8 completamente inadeguata, poich\u00e9 non fornisce alcuna informazione utile riguardo al concetto di corpus di addestramento. La risposta corretta offre una definizione chiara e dettagliata, spiegando l'importanza e l'uso di un corpus nel contesto dell'addestramento dei modelli di linguaggio.\n\nMiglioramenti: Lo studente dovrebbe iniziare a studiare il concetto di corpus di addestramento, cercando fonti affidabili come testi accademici o risorse online. Potrebbe essere utile prendere appunti sui punti chiave e provare a riformulare le informazioni con parole proprie per migliorare la comprensione. Inoltre, \u00e8 importante non esitare a chiedere chiarimenti se ci sono dubbi su un argomento.",
                 "understood": true
+            },
+            {
+                "domanda": "Che cosa sono le embeddings delle parole?",
+                "risposta_studente": "rappresentazioni compatte di una parola per i llm",
+                "feedback": "Feedback:\n\nLa risposta dello studente \u00e8 parzialmente corretta, in quanto riconosce che le embeddings sono rappresentazioni di parole e menziona l'aspetto della compattezza. Tuttavia, manca di dettagli cruciali riguardanti la definizione, il funzionamento e l'importanza delle embeddings nel contesto del linguaggio naturale. Non menziona specificamente che sono rappresentazioni numeriche denso-vettoriali, n\u00e9 fa riferimento ai modelli che le generano, come word2vec o fastText, n\u00e9 spiega come catturano il significato semantico e sintattico delle parole.\n\nPer migliorare, lo studente dovrebbe:\n\n1. Includere una definizione pi\u00f9 completa delle embeddings.\n2. Spiegare come queste rappresentazioni riducono la dimensionalit\u00e0 rispetto al vocabolario.\n3. Citare modelli specifici utilizzati per generare le embeddings.\n4. Discutere l'importanza delle embeddings nel catturare relazioni tra parole, come similarit\u00e0 e analogie.",
+                "understood": true
+            },
+            {
+                "domanda": "Qual \u00e8 il significato di 'tokenizzazione' in un modello di linguaggio?",
+                "risposta_studente": "non lo so",
+                "feedback": "Feedback: La risposta dello studente \u00e8 completamente insufficiente poich\u00e9 non fornisce alcuna informazione sulla tokenizzazione. La risposta corretta, invece, spiega chiaramente cos'\u00e8 la tokenizzazione, il suo scopo e fornisce un esempio pratico.\n\nSuggerimenti per migliorare: Lo studente dovrebbe cercare di fornire almeno una definizione di tokenizzazione e, se non \u00e8 sicuro, tentare di esprimere ci\u00f2 che sa o fare riferimento a concetti correlati. \u00c8 utile anche fare uno sforzo per cercare informazioni quando non si conosce la risposta.",
+                "understood": false
             }
         ]
     },

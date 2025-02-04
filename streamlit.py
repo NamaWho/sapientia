@@ -8,6 +8,7 @@ import sounddevice as sd
 import soundfile as sf
 import numpy as np
 
+
 warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
 
 # Caricamento delle variabili d'ambiente
@@ -19,9 +20,9 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 STUDENT_HISTORY_FILE = "student_history.json"
 DATASET_PATH = "Domande_e_Risposte.json"
 
-############################
+####################################
 # Data Persistence
-############################
+####################################
 
 def load_student_history():
     if os.path.exists(STUDENT_HISTORY_FILE):
@@ -33,16 +34,16 @@ def save_student_history(history):
     with open(STUDENT_HISTORY_FILE, "w") as file:
         json.dump(history, file, indent=4)
 
-############################
+####################################
 # OpenAI Helpers
-############################
+####################################
 
 def query_openai(messages, temperature=0.7, max_tokens=500):
     response = openai.ChatCompletion.create(
         model="gpt-4o-mini",
         messages=messages,
         temperature=temperature,
-        max_tokens=max_tokens, 
+        max_tokens=max_tokens,
         stream=False
     )
     text = response["choices"][0]["message"]["content"].strip()
@@ -63,7 +64,7 @@ def evaluate_response(student_response, correct_answer):
 
 def generate_followup_mcq(question, correct_answer):
     prompt = f"""Crea tre domande a scelta multipla (in italiano) per verificare la comprensione del concetto relativo a questa domanda e risposta:
-    
+
 Domanda: {question}
 Risposta corretta: {correct_answer}
 
@@ -138,28 +139,38 @@ def generate_practical_example(concept, level):
     ]
     return query_openai(messages)
 
-############################
-# Funzioni per Audio (Ripasso)
-############################
+####################################
+# Funzioni per la registrazione e trascrizione audio
+####################################
 
-def record_audio(duration=15, sample_rate=32000):
-    st.info("Registrazione audio in corso...")
+# Registra l'audio utilizzando sounddevice (durata in secondi)
+def record_audio_sd(duration=10, sample_rate=32000):
+    st.info("Registrazione audio in corso... Parla ora!")
     recording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=1)
     sd.wait()
     return recording, sample_rate
 
-def save_audio(recording, sample_rate, filename="temp_recording.wav"):
+# Salva l'audio registrato in un file WAV
+def save_audio_sd(recording, sample_rate, filename="temp_recording.wav"):
     sf.write(filename, recording, sample_rate)
     return filename
 
-def transcribe_audio(audio_file, model="base"):
-    whisper_model = whisper.load_model(model)
-    result = whisper_model.transcribe(audio_file)
-    return result["text"]
+# Trascrive l'audio salvato utilizzando il modello Whisper
+def transcribe_audio_file(audio_file, model="base"):
+    try:
+        whisper_model = whisper.load_model(model)
+        result = whisper_model.transcribe(audio_file)
+        return result["text"]
+    except Exception as e:
+        st.error("Errore durante il caricamento o la trascrizione del modello Whisper.\n"
+                 "Questo potrebbe indicare che il file del modello è corrotto. Prova a cancellare la cache del modello e riprovare.\n"
+                 "Errore: " + str(e))
+        return ""
 
-############################
-# Funzioni di supporto per il Dataset
-############################
+
+####################################
+# Funzioni di supporto per il dataset
+####################################
 
 def get_questions_by_level(dataset, level):
     return [q for q in dataset if q["livello"] == level]
@@ -176,10 +187,11 @@ def get_review_question(dataset, student_id, history):
             return q
     return None
 
-############################
+####################################
 # Interfaccia Grafica con Streamlit
-############################
+####################################
 
+# Modalità Studio (testuale)
 def run_study_mode(dataset, student_id, history):
     student_data = history.get(student_id, {"level": "base", "current_index": 0, "progress": []})
     level = student_data.get("level", "base")
@@ -200,122 +212,144 @@ def run_study_mode(dataset, student_id, history):
         for key, option in current_question["opzioni"].items():
             st.write(f"{key}: {option}")
 
-    student_response = st.text_area("Inserisci la tua risposta:", "")
-    if st.button("Invia risposta"):
-        if not student_response.strip():
-            st.warning("Inserisci una risposta valida.")
-        else:
-            feedback = evaluate_response(student_response, current_question["risposta"])
-            st.markdown("### Feedback:")
-            st.write(feedback)
-            attempt = {
-                "domanda": current_question["domanda"],
-                "risposta_studente": student_response,
-                "feedback": feedback,
-                "understood": False
-            }
-            student_data["progress"].append(attempt)
-            # Genera MCQ di follow-up
-            mcq_set = generate_followup_mcq(current_question["domanda"], current_question["risposta"])
-            if not mcq_set:
-                st.error("Non è stato possibile generare domande a scelta multipla. Procedi alla prossima domanda.")
+    if "mcq_set" in st.session_state and st.session_state["mcq_set"] is not None:
+        mcq_set = st.session_state["mcq_set"]
+        st.markdown("### Domande a Scelta Multipla (MCQ)")
+        user_answers = []
+        for idx, mcq in enumerate(mcq_set):
+            st.markdown(f"**MCQ {idx + 1}:** {mcq['domanda']}")
+            options = mcq.get("opzioni", {})
+            answer = st.radio(f"Seleziona la risposta per MCQ {idx + 1}:", list(options.keys()), key=f"mcq_{idx}")
+            user_answers.append(answer)
+            for letter, text in options.items():
+                st.write(f"{letter}: {text}")
+        if st.button("Invia risposte MCQ"):
+            if check_mcq_answers(mcq_set, user_answers):
+                st.success("Complimenti! Hai risposto correttamente a tutte le MCQ.")
+                if "attempt_index" in st.session_state:
+                    idx = st.session_state["attempt_index"]
+                    if idx < len(student_data["progress"]):
+                        student_data["progress"][idx]["understood"] = True
                 student_data["current_index"] = current_index + 1
                 history[student_id] = student_data
                 save_student_history(history)
+                st.session_state["mcq_set"] = None
+                st.session_state["attempt_index"] = None
             else:
-                st.markdown("### Domande a Scelta Multipla (MCQ)")
-                user_answers = []
-                for idx, mcq in enumerate(mcq_set):
-                    st.markdown(f"**MCQ {idx+1}:** {mcq['domanda']}")
-                    options = mcq.get("opzioni", {})
-                    answer = st.radio(f"Seleziona la risposta per MCQ {idx+1}:", list(options.keys()), key=f"mcq_{idx}")
-                    user_answers.append(answer)
-                    for letter, text in options.items():
-                        st.write(f"{letter}: {text}")
-                if st.button("Invia risposte MCQ"):
-                    if check_mcq_answers(mcq_set, user_answers):
-                        st.success("Complimenti! Hai risposto correttamente a tutte le MCQ.")
-                        student_data["progress"][-1]["understood"] = True
-                        student_data["current_index"] = current_index + 1
-                        history[student_id] = student_data
-                        save_student_history(history)
-                    else:
-                        st.error("Alcune risposte non sono corrette. Riprova.")
-                        st.markdown("### Risorse aggiuntive:")
-                        yt_query = generate_yt_query(current_question["domanda"], current_question["risposta"], level)
-                        videos = search_youtube(yt_query)
-                        if videos:
-                            st.markdown("**Video consigliati su YouTube:**")
-                            for vid in videos:
-                                st.write(f"**{vid['title']}**")
-                                st.write(vid['link'])
-                        else:
-                            st.write("Nessun video trovato.")
-                        practical_example = generate_practical_example(current_question["domanda"], level)
-                        st.markdown("**Esempio pratico:**")
-                        st.write(practical_example)
+                st.error("Alcune risposte non sono corrette. Riprova.")
+                st.markdown("### Risorse aggiuntive:")
+                yt_query = generate_yt_query(current_question["domanda"], current_question["risposta"], level)
+                videos = search_youtube(yt_query)
+                if videos:
+                    st.markdown("**Video consigliati su YouTube:**")
+                    for vid in videos:
+                        st.write(f"**{vid['title']}**")
+                        st.write(vid['link'])
+                else:
+                    st.write("Nessun video trovato.")
+                practical_example = generate_practical_example(current_question["domanda"], level)
+                st.markdown("**Esempio pratico:**")
+                st.write(practical_example)
+    else:
+        student_response = st.text_area("Inserisci la tua risposta:", "")
+        if st.button("Invia risposta"):
+            if not student_response.strip():
+                st.warning("Inserisci una risposta valida.")
+            else:
+                feedback = evaluate_response(student_response, current_question["risposta"])
+                st.markdown("### Feedback:")
+                st.write(feedback)
+                attempt = {
+                    "domanda": current_question["domanda"],
+                    "risposta_studente": student_response,
+                    "feedback": feedback,
+                    "understood": False
+                }
+                student_data["progress"].append(attempt)
+                st.session_state["attempt_index"] = len(student_data["progress"]) - 1
+                mcq_set = generate_followup_mcq(current_question["domanda"], current_question["risposta"])
+                if not mcq_set:
+                    st.error("Non è stato possibile generare domande a scelta multipla. Procedi alla prossima domanda.")
+                    student_data["current_index"] = current_index + 1
+                    history[student_id] = student_data
+                    save_student_history(history)
+                else:
+                    st.session_state["mcq_set"] = mcq_set
 
+# Modalità Ripasso (registrazione audio con sounddevice)
 def run_review_mode(dataset, student_id, history):
     st.header("Modalità Ripasso")
     question = get_review_question(dataset, student_id, history)
     if not question:
         st.info("Non ci sono domande da ripassare al momento.")
         return
-    st.markdown(f"**Domanda da ripassare:** {question['domanda']}")
-    st.write("Carica un file audio (in formato WAV) contenente la tua risposta.")
-    uploaded_file = st.file_uploader("Carica il file audio", type=["wav"])
-    if uploaded_file is not None:
-        audio_bytes = uploaded_file.read()
-        with open("temp_recording.wav", "wb") as f:
-            f.write(audio_bytes)
-        st.audio(uploaded_file, format="audio/wav")
-        if st.button("Trascrivi e valuta"):
-            transcribed_response = transcribe_audio("temp_recording.wav")
-            st.markdown("### Risposta trascritta:")
-            st.write(transcribed_response)
-            feedback = evaluate_response(transcribed_response, question["risposta"])
-            st.markdown("### Feedback:")
-            st.write(feedback)
-            # Aggiorna lo storico per il ripasso
-            student_data = history.get(student_id, {"progress": []})
-            for idx, attempt in enumerate(student_data.get("progress", [])):
-                if attempt["domanda"] == question["domanda"]:
-                    student_data["progress"][idx]["review_attempt"] = {
-                        "risposta": transcribed_response,
-                        "feedback": feedback,
-                        "timestamp": time.time()
-                    }
-                    break
-            history[student_id] = student_data
-            save_student_history(history)
 
-############################
-# Funzione principale Streamlit
-############################
+    st.markdown(f"**Domanda da ripassare:** {question['domanda']}")
+    st.write("Utilizza il pulsante per registrare la tua risposta audio.")
+
+    # Pulsante per registrare l'audio (durata fissa, es. 10 secondi)
+    if st.button("🎙️ Registra Audio per 10 secondi"):
+        recording, sample_rate = record_audio_sd(duration=10, sample_rate=32000)
+        st.success("Registrazione terminata!")
+        # Salva il file audio
+        audio_file = save_audio_sd(recording, sample_rate)
+        st.audio(audio_file, format="audio/wav")
+        # Trascrizione dell'audio
+        with st.spinner("Trascrizione in corso..."):
+            transcribed_response = transcribe_audio_file(audio_file)
+        st.markdown("### Trascrizione:")
+        st.write(transcribed_response)
+        # Valuta la risposta trascritta
+        feedback = evaluate_response(transcribed_response, question["risposta"])
+        st.markdown("### Feedback:")
+        st.write(feedback)
+        # Aggiorna lo storico dello studente
+        student_data = history.get(student_id, {"progress": []})
+        updated = False
+        for attempt in student_data.get("progress", []):
+            if attempt["domanda"] == question["domanda"]:
+                attempt["review_attempt"] = {
+                    "risposta": transcribed_response,
+                    "feedback": feedback,
+                    "timestamp": time.time()
+                }
+                updated = True
+                break
+        if not updated:
+            student_data["progress"].append({
+                "domanda": question["domanda"],
+                "review_attempt": {
+                    "risposta": transcribed_response,
+                    "feedback": feedback,
+                    "timestamp": time.time()
+                }
+            })
+        history[student_id] = student_data
+        save_student_history(history)
+        st.success("✅ Revisione completata!")
+
+####################################
+# Funzione principale
+####################################
 
 def main():
     st.title("Piattaforma Didattica Interattiva")
-    
-    # Verifica l'esistenza del dataset
     if not os.path.exists(DATASET_PATH):
         st.error("Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json.")
         return
     with open(DATASET_PATH, "r") as f:
         dataset = json.load(f)
-    
-    # Inserimento ID studente
+
     student_id = st.text_input("Inserisci il tuo ID studente", key="student_id")
     if student_id.strip() == "":
         st.warning("Inserisci il tuo ID studente per continuare.")
         return
-    
-    # Carica o inizializza lo storico
+
     history = load_student_history()
     if student_id not in history:
         history[student_id] = {"level": "base", "current_index": 0, "progress": []}
         save_student_history(history)
-    
-    # Menu laterale per la selezione della modalità
+
     mode = st.sidebar.radio("Scegli la modalità:", ("Modalità Studio", "Modalità Ripasso"))
     if mode == "Modalità Studio":
         run_study_mode(dataset, student_id, history)

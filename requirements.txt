@@ -1,0 +1,9 @@
+openai
+python-dotenv
+requests
+colorama
+rich
+sounddevice
+soundfile
+numpy
+whisper

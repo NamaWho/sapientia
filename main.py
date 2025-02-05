@@ -67,7 +67,7 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 # Percorsi file
 STUDENT_HISTORY_FILE = "student_history.json"
-DATASET_PATH = "Domande_e_Risposte.json"
+DATASET_PATH = "qa.json"
 
 ############################
 # Data Persistence
@@ -299,7 +299,7 @@ def get_review_question(dataset, student_id, history):
 def fancy_intro():
     print(Fore.MAGENTA + Style.BRIGHT + "============================================")
     print(
-        EMOJI_BOOK + "  " + BLINK + "BENVENUTO NELLA PIATTAFORMA DIDATTICA CLI" + RESET + "  " + EMOJI_BOOK
+        EMOJI_BOOK + "  " + BLINK + "BENVENUTO IN SAPIENTIA " + RESET + "  " + EMOJI_BOOK
     )
     print("============================================" + Fore.RESET + Style.RESET_ALL + "\n")
     # Piccola animazione
@@ -510,7 +510,7 @@ def main():
 
     # Verifichiamo che esista il file dataset
     if not os.path.exists(DATASET_PATH):
-        print(f"{Fore.RED}[ERRORE]{Fore.RESET} Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json.")
+        print(f"{Fore.RED}[ERRORE]{Fore.RESET} Il file del dataset non esiste. Assicurati di avere qa.json.")
         sys.exit(1)
 
     # Carichiamo il dataset

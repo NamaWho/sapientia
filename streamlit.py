@@ -18,7 +18,7 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 # Costanti per i file di dataset e storico
 STUDENT_HISTORY_FILE = "student_history.json"
-DATASET_PATH = "Domande_e_Risposte.json"
+DATASET_PATH = "qa.json"
 
 ####################################
 # Data Persistence
@@ -333,9 +333,9 @@ def run_review_mode(dataset, student_id, history):
 ####################################
 
 def main():
-    st.title("Piattaforma Didattica Interattiva")
+    st.title("Sapientia")
     if not os.path.exists(DATASET_PATH):
-        st.error("Il file del dataset non esiste. Assicurati di avere Domande_e_Risposte.json.")
+        st.error("Il file del dataset non esiste. Assicurati di avere qa.json.")
         return
     with open(DATASET_PATH, "r") as f:
         dataset = json.load(f)

@@ -16,7 +16,7 @@ import whisper
 import sounddevice as sd
 import soundfile as sf
 import numpy as np
-import warnings 
+import warnings
 from rich.console import Console
 from rich.markdown import Markdown
 
@@ -64,6 +64,8 @@ except AttributeError:
     client = None
 
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+
+
 
 # Percorsi file
 STUDENT_HISTORY_FILE = "student_history.json"
@@ -145,10 +147,10 @@ def evaluate_response(student_response, correct_answer):
         f"Valuta la seguente risposta rispetto alla risposta corretta:\n\n"
         f"Risposta dello studente: '{student_response}'\n"
         f"Risposta corretta: '{correct_answer}'\n\n"
-        f"Fornisci un breve feedback su cosa c'è di giusto o sbagliato, e come migliorare."
+        f"Fornisci un breve feedback su cosa c'è di giusto o sbagliato, come migliorare e dai la spiegazione della domanda."
     )
     messages = [
-        {"role": "system", "content": "Sei un tutor che valuta risposte e fornisce correzioni in modo chiaro e conciso."},
+        {"role": "system", "content": "Sei un tutor che valuta risposte e fornisce correzioni (parlando in prima persona con lo studente) in modo chiaro e conciso."},
         {"role": "user", "content": prompt}
     ]
     return query_openai(messages)
@@ -275,8 +277,7 @@ def get_review_question(dataset, student_id, history):
     # Filtra le domande che necessitano ripasso (understood=False o non recenti)
     review_candidates = []
     for attempt in progress:
-        if not attempt.get("understood", False):
-            review_candidates.append(attempt["domanda"])
+        review_candidates.append(attempt["domanda"])
     
     if not review_candidates:
         return None
